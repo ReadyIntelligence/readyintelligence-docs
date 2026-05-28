@@ -1,0 +1,148 @@
+/* =============================================================================
+ * ReadyIntelligence docs — custom styles (Starlight "Rapide" theme)
+ *
+ * Rapide builds its colours from OKLCH hue angles. The stock theme is green
+ * (--sl-hue-accent/-green = 164); we retarget that to the brand pink #cd499b
+ * (oklch(61% 0.187 346)) and tint the greys toward the #171123 background
+ * (oklch hue ≈ 298). Overriding a hue regenerates every derived tint/shade.
+ *
+ * Contents:
+ *   1. Font imports
+ *   2. Design tokens (:root variables)
+ *   3. Typography
+ *   4. Buttons
+ *   5. Landing-page call-out
+ * ============================================================================= */
+
+/* 1. Fonts — @import must precede all other rules. -------------------------- */
+@import "@fontsource/poppins/400.css";
+@import "@fontsource/poppins/500.css";
+@import "@fontsource/poppins/600.css";
+@import "@fontsource/poppins/700.css";
+@import "@fontsource-variable/parkinsans";
+
+/* 2. Design tokens ---------------------------------------------------------- */
+
+/* Typography tokens (both themes). */
+:root {
+  --sl-font: "Poppins", sans-serif;
+  --font-headings: "Parkinsans Variable", "Poppins", sans-serif;
+}
+
+/* Dark theme (default). */
+:root {
+  /* Surfaces */
+  --sl-color-bg: #171123;
+  --sl-color-bg-sidebar: #171123;
+  --sl-rapide-ui-header-bg-color: #171123;
+
+  /* Hues */
+  --sl-hue-base: 298; /* greys tinted toward the purple background */
+  --sl-hue-accent: 346; /* brand pink */
+  --sl-hue-green: 346; /* common to both themes — recolours the green/“tip” scale */
+
+  /* Accent (pink) */
+  --sl-color-accent-low: oklch(26% 0.07 346);
+  --sl-color-accent: oklch(58% 0.18 346);
+  --sl-color-accent-high: oklch(82% 0.11 346);
+  --sl-color-text-accent: #cd499b;
+
+  /* Purple-tinted greys. The theme's greys use near-zero chroma, so the hue alone
+     is invisible — we keep its lightness ramp and raise the chroma so the tint shows. */
+  --sl-color-white: oklch(90% 0.012 298);
+  --sl-color-gray-1: oklch(80% 0.018 298);
+  --sl-color-gray-2: oklch(80% 0.018 298);
+  --sl-color-gray-3: oklch(65% 0.022 298);
+  --sl-color-gray-4: oklch(48% 0.026 298);
+  --sl-color-gray-5: oklch(29% 0.03 298);
+  --sl-color-gray-6: oklch(23% 0.032 298);
+  --sl-color-gray-7: oklch(20.5% 0.034 298);
+  --sl-color-black: oklch(18% 0.036 298);
+}
+
+/* Light theme. The greys MUST be redefined here: the dark greys above are
+   unlayered, so they would otherwise override the theme's light greys too
+   (cascade layers beat specificity), leaving dark text colours on a light page. */
+:root[data-theme="light"] {
+  /* Surfaces */
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-rapide-ui-header-bg-color: #ffffff;
+
+  /* Accent (pink) */
+  --sl-hue-accent: 346;
+  --sl-color-accent-low: oklch(95% 0.03 346);
+  --sl-color-accent: oklch(58% 0.187 346);
+  --sl-color-accent-high: oklch(45% 0.16 346);
+
+  /* Purple-tinted greys (light lightness ramp). */
+  --sl-color-white: oklch(30% 0.02 298);
+  --sl-color-gray-1: oklch(36% 0.022 298);
+  --sl-color-gray-2: oklch(36% 0.022 298);
+  --sl-color-gray-3: oklch(44% 0.02 298);
+  --sl-color-gray-4: oklch(66% 0.018 298);
+  --sl-color-gray-5: oklch(88% 0.012 298);
+  --sl-color-gray-6: oklch(90% 0.01 298);
+  --sl-color-gray-7: oklch(96% 0.006 298);
+  --sl-color-black: oklch(98% 0.004 298);
+}
+
+/* 3. Typography ------------------------------------------------------------- */
+
+/* Headings, site title, hero, and the landing call-out title use Parkinsans. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.site-title,
+.hero h1,
+.ri-about-title {
+  font-family: var(--font-headings);
+  font-weight: 900;
+}
+
+/* 4. Buttons ---------------------------------------------------------------- */
+
+.sl-link-button.primary,
+.sl-link-button.minimal {
+  font-weight: 700;
+}
+
+/* Primary: solid accent fill, white text, no visible border, softly rounded. */
+.sl-link-button.primary {
+  background-color: var(--sl-color-accent);
+  border-color: transparent;
+  border-radius: 0.75rem;
+  color: #fff;
+}
+.sl-link-button.primary:is(:hover, :focus-visible) {
+  background-color: oklch(52% 0.185 346);
+  border-color: transparent;
+  color: #fff;
+}
+
+/* 5. Landing page — "New to ReadyIntelligence?" call-out -------------------- */
+
+.ri-about {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  max-width: 50ch;
+  margin: 5rem auto 0;
+  padding-top: 3rem;
+  border-top: 1px solid var(--sl-color-gray-5);
+  text-align: center;
+}
+.ri-about-title {
+  margin: 0;
+  font-size: var(--sl-text-2xl);
+  line-height: 1.2;
+}
+.ri-about-text {
+  margin: 0;
+  color: var(--sl-color-gray-2);
+  text-wrap: balance;
+}

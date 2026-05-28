@@ -1,0 +1,79 @@
+---
+title: Web Components
+description: Embed interactive ReadyIntelligence elements — buttons, inputs, and prompt lists — anywhere on your website to trigger and communicate with the Assistant.
+sidebar:
+  label: Overview
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+
+ReadyIntelligence **Web Components** let you embed interactive elements directly into your web
+pages, so other parts of your site can trigger or talk to the [Assistant](/guides/assistants/)
+— rather than relying on a single entry point such as a floating button.
+
+They behave like native HTML elements, drop into any website — a WordPress site, a static HTML
+page, or a modern frontend framework — and automatically connect to the Assistant embedded on
+your page.
+
+Once enabled, you can:
+
+- **Launch the Assistant** from a button anywhere on the page.
+- **Submit a query** to the Assistant from a text input.
+- **Offer preset prompts** that open the Assistant with a specific question when clicked.
+
+## Available components
+
+| Component | What it does |
+|-----------|--------------|
+| [`<ri-assistant-button>`](/reference/web-components/assistant-button/) | A button that opens the Assistant, optionally with a specific prompt. |
+| [`<ri-assistant-input>`](/reference/web-components/assistant-input/) | A text input that opens the Assistant with the visitor's query already sent. |
+| [`<ri-assistant-prompts>`](/reference/web-components/assistant-prompts/) | A list or button group of preset prompts that launch the Assistant when clicked. |
+
+## Enabling and using web components
+
+You don't need to add any extra scripts of your own. Each assistant decides which web
+components are available, and the ones you enable are bundled into that assistant's embed
+script automatically.
+
+<Steps>
+
+1. **Enable the components on your assistant**
+
+   Open your assistant's configuration and find the **Web components** section. Tick the
+   components you want to use — Chat button, Quick-ask input, and/or Preset prompts list. Only
+   the components you tick are included.
+
+2. **Embed the assistant on your site**
+
+   Add the assistant's embed snippet to your page (the same snippet that loads the Assistant —
+   copy it from the assistant's embedding instructions). The scripts for the components you
+   enabled load automatically alongside it, so there's nothing else to include.
+
+   See [Assistants](/guides/assistants/) for how the assistant is embedded.
+
+3. **Place the components in your markup**
+
+   Once the embed snippet is on the page, use the components anywhere in your markup, just like
+   any other HTML element:
+
+   ```html
+   <ri-assistant-button text="Ask the Assistant"></ri-assistant-button>
+
+   <ri-assistant-input input-placeholder-text="Ask a question..."></ri-assistant-input>
+
+   <ri-assistant-prompts
+     prompts='["How do I renew my membership?", "What are the benefits of being a member?", "How do I access my member portal?"]'>
+   </ri-assistant-prompts>
+   ```
+
+</Steps>
+
+:::note
+A component only works on pages that include the assistant's embed snippet, and only if you've
+ticked it on that assistant. If a component doesn't appear, check that it's enabled in the
+assistant's **Web components** section and that the embed snippet is present on the page.
+:::
+
+Each component accepts a range of attributes for styling and behaviour — see the individual
+component pages for the full reference.
