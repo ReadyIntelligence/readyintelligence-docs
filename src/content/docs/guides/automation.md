@@ -5,15 +5,15 @@ sidebar:
   order: 2
 ---
 
-[Agents](/guides/agents/) don't only respond to people chatting in an
-[assistant](/guides/assistants/). They can also run **in the background**, doing work on a
+[Agents](./agents.md) don't only respond to people chatting in an
+[assistant](./assistants.md). They can also run **in the background**, doing work on a
 schedule or in response to an external event.
 
 ## Scheduled agent calls
 
 A **scheduled agent call** runs an agent automatically at a recurring time — for example "every
 morning at 8:46am" — with a fixed prompt. The agent runs in the background and does the work for
-you, using whatever [tools](/guides/tools/) it has, then records the result of each run.
+you, using whatever [tools](./tools.md) it has, then records the result of each run.
 
 | Setting | Description |
 |---------|-------------|
@@ -25,7 +25,7 @@ you, using whatever [tools](/guides/tools/) it has, then records the result of e
 | **Owner** | The user the scheduled call belongs to and runs as. |
 
 Each scheduled call keeps a history of its **runs** and a **next run date**. Agents can also be
-given the *scheduled agent management* [tool](/guides/tools/), letting users create and adjust
+given the *scheduled agent management* [tool](./tools.md), letting users create and adjust
 their own scheduled calls conversationally.
 
 ## Webhook triggers
@@ -46,4 +46,4 @@ Like scheduled calls, each trigger keeps a record of its **runs**.
 
 ## Related reading
 
-- [Agents](/guides/agents/) — scheduled calls and webhook triggers are configured against an agent.
+- [Agents](./agents.md) — scheduled calls and webhook triggers are configured against an agent.

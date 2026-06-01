@@ -22,7 +22,7 @@ The typical lifecycle of a knowledge source is:
 1. **Discover** — ReadyIntelligence works out which documents exist in the source.
 2. **Index** — it reads each document's content (text, a file, or a web page) and adds it to the knowledge base.
 3. **Enrich** — optional [metadata](#document-metadata) is attached to each document, some of it filled in automatically by AI.
-4. **Search** — agents query the knowledge base through the knowledge base search [tool](/guides/tools/).
+4. **Search** — agents query the knowledge base through the knowledge base search [tool](./tools.md).
 5. **Refresh** — sources can be re-indexed on demand or on a schedule to pick up changes.
 
 ## Source types
@@ -65,7 +65,7 @@ account, or starting URL to read from.
 Agents don't query the knowledge base directly; they use the **knowledge base search tool**.
 When you attach this tool to an agent you can scope it to particular sources and add editorial
 guidance describing what's in them, which helps the model decide when to search and how to
-phrase its query. See [Tools](/guides/tools/) for how that tool is configured.
+phrase its query. See [Tools](./tools.md) for how that tool is configured.
 
 ## Document metadata
 
@@ -109,5 +109,5 @@ the knowledge base aligned.
 
 ## Related reading
 
-- [Tools](/guides/tools/) — how agents search the knowledge base.
-- [Agents](/guides/agents/) — agents are what use the knowledge base during a conversation.
+- [Tools](./tools.md) — how agents search the knowledge base.
+- [Agents](./agents.md) — agents are what use the knowledge base during a conversation.

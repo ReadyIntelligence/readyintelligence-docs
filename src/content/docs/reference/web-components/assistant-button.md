@@ -6,11 +6,11 @@ sidebar:
   order: 2
 ---
 
-`<ri-assistant-button>` is a customisable button that opens the [Assistant](/guides/assistants/)
+`<ri-assistant-button>` is a customisable button that opens the [Assistant](../../guides/assistants.md)
 when clicked — optionally starting the conversation with a specific prompt.
 
 Enable it on your assistant by ticking **Chat button** in the assistant's
-[Web components](/reference/web-components/overview/#enabling-and-using-web-components) section.
+[Web components](./overview.mdx#enabling-and-using-web-components) section.
 
 ## Example use cases
 
@@ -66,5 +66,5 @@ To open the Assistant with a message already sent, add a `prompt`:
 
 ## Related reading
 
-- [Web Components overview](/reference/web-components/overview/) — enabling components and embedding them.
-- [Assistants](/guides/assistants/) — the chat experience this button opens.
+- [Web Components overview](./overview.mdx) — enabling components and embedding them.
+- [Assistants](../../guides/assistants.md) — the chat experience this button opens.

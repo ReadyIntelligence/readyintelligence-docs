@@ -8,9 +8,9 @@ sidebar:
 ## Introduction
 
 An **agent** is the configurable AI "brain" that powers a conversation. When a user asks a
-question through an [assistant](/guides/assistants/), it's the agent that decides how to
+question through an [assistant](./assistants.md), it's the agent that decides how to
 respond: it takes the conversation, adds its own instructions and personality, and sends it to
-a **language model** along with the list of [tools](/guides/tools/) it's allowed to use. The
+a **language model** along with the list of [tools](./tools.md) it's allowed to use. The
 model then either answers directly or calls a tool to gather more information first.
 
 You can think of an agent as a saved recipe for AI behaviour. The same agent can power several
@@ -27,7 +27,7 @@ tools make sense for it:
 | **Public agent** | For public-facing conversations. Has access to a limited, public-safe set of tools. |
 | **Admin / automation agent** | For use in the admin interface, workflows, automations, and similar scenarios. Has access to all non-public tools, including ones that can read and change data. |
 
-The type matters because [tools](/guides/tools/) declare which agent types they're appropriate
+The type matters because [tools](./tools.md) declare which agent types they're appropriate
 for — a tool that can edit records, for instance, will only be offered to admin/automation
 agents, never to public ones.
 
@@ -75,17 +75,17 @@ When you create or edit an agent, the following settings are available.
 
 | Setting | Description |
 |---------|-------------|
-| **Tools** | The [tools](/guides/tools/) attached to this agent. Only tools appropriate to the agent's type can be added, and each tool can carry its own configuration. |
+| **Tools** | The [tools](./tools.md) attached to this agent. Only tools appropriate to the agent's type can be added, and each tool can carry its own configuration. |
 
 ### Automation
 
 | Setting | Description |
 |---------|-------------|
-| **Scheduled calls** | Recurring, automated runs of the agent. See [Automation & scheduling](/guides/automation/). |
-| **Webhook triggers** | Runs of the agent triggered by incoming webhooks. See [Automation & scheduling](/guides/automation/). |
+| **Scheduled calls** | Recurring, automated runs of the agent. See [Automation & scheduling](./automation.md). |
+| **Webhook triggers** | Runs of the agent triggered by incoming webhooks. See [Automation & scheduling](./automation.md). |
 
 ## Related reading
 
-- [Assistants](/guides/assistants/) — how an agent is surfaced to users.
-- [Tools](/guides/tools/) — the capabilities you attach to an agent.
-- [Automation & scheduling](/guides/automation/) — running agents on a schedule or via webhooks.
+- [Assistants](./assistants.md) — how an agent is surfaced to users.
+- [Tools](./tools.md) — the capabilities you attach to an agent.
+- [Automation & scheduling](./automation.md) — running agents on a schedule or via webhooks.

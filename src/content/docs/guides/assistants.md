@@ -8,7 +8,7 @@ sidebar:
 ## Introduction
 
 An **assistant** is the chat experience your users actually see and interact with. Where an
-[agent](/guides/agents/) is the AI "brain", the assistant is the face: the chat window, its
+[agent](./agents.md) is the AI "brain", the assistant is the face: the chat window, its
 welcome message, its suggested questions, its look and feel, and the rules about who can use it.
 
 Each assistant points at a **default agent**, which does the actual thinking. This separation
@@ -45,7 +45,7 @@ Access is controlled by an **authentication mode**:
 
 | Setting | Description |
 |---------|-------------|
-| **Default agent** | The [agent](/guides/agents/) that powers the assistant's conversations. |
+| **Default agent** | The [agent](./agents.md) that powers the assistant's conversations. |
 | **Welcome message** | An optional opening message shown when a new conversation starts, e.g. "Hi, I'm Clara and I can help you. Ask a question to get started!" |
 | **Suggested prompts** | Up to three starter prompts offered to the user. |
 | **Embed mode** | Internal, external, or admin — see [above](#where-an-assistant-lives). |
@@ -85,11 +85,11 @@ of preset prompts. These are **web components**.
 In the assistant's **Web components** section you tick which ones to make available — *Chat
 button*, *Quick-ask input*, and/or *Preset prompts list*. The components you enable are bundled
 into the assistant's embed script automatically, so once the embed snippet is on a page you can
-drop the elements straight into your markup. See [Web Components](/reference/web-components/overview/).
+drop the elements straight into your markup. See [Web Components](../reference/web-components/overview.mdx).
 
 ## Related reading
 
-- [Agents](/guides/agents/) — the brain behind every assistant.
-- [Tools](/guides/tools/) — what the backing agent can do during a conversation.
-- [Web Components](/reference/web-components/overview/) — embed buttons, inputs, and prompt lists that launch the assistant.
-- [MCP](/guides/mcp/) — exposing agents to external AI apps instead of (or as well as) an assistant UI.
+- [Agents](./agents.md) — the brain behind every assistant.
+- [Tools](./tools.md) — what the backing agent can do during a conversation.
+- [Web Components](../reference/web-components/overview.mdx) — embed buttons, inputs, and prompt lists that launch the assistant.
+- [MCP](./mcp.md) — exposing agents to external AI apps instead of (or as well as) an assistant UI.

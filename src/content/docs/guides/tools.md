@@ -7,7 +7,7 @@ sidebar:
 
 ## Introduction
 
-A **tool** is a capability an [agent](/guides/agents/) can use during a conversation. On its
+A **tool** is a capability an [agent](./agents.md) can use during a conversation. On its
 own, a language model can only generate text from what it already knows. Tools let it *do*
 things — search your knowledge base, look up a member's details, query data, fetch a metric, or
 reach an external system — and bring real, current information back into the answer.
@@ -19,7 +19,7 @@ so answers can cite where the information came from.
 
 Tools are attached to an agent one by one, and each attached tool can carry its own
 **configuration** — for example, scoping the knowledge base search tool to particular sources.
-Which tools an agent may use depends on its [type](/guides/agents/#agent-types): public-facing
+Which tools an agent may use depends on its [type](./agents.md#agent-types): public-facing
 agents are offered a safe subset, while admin/automation agents can use more powerful tools that
 read or change data.
 
@@ -29,16 +29,16 @@ ReadyIntelligence ships with a range of tools you can attach to agents:
 
 | Tool | What it lets the agent do |
 |------|---------------------------|
-| **Knowledge base search** | Search your [knowledge base](/guides/knowledge-base/) sources to ground answers in your own content. |
+| **Knowledge base search** | Search your [knowledge base](./knowledge-base.md) sources to ground answers in your own content. |
 | **Data querying** | Inspect data schemas, query records, and (for capable agents) add or edit records, respecting the user's data-access permissions. |
 | **Data visualisation metrics** | Discover available metrics and query value or time-series figures about data in the system. |
 | **Member directory search** *(experimental)* | Search and filter member directories to answer questions about publicly listed members. |
 | **My membership info** *(experimental)* | Retrieve information about the current user's own membership. |
 | **Knowledge Hub search** | Search the product knowledge hub of how-tos and user guides. |
 | **Publish to content library** | Publish content into the content library, when the user has rights to do so. |
-| **MCP server tool** | Call a tool on an external [MCP server](/guides/mcp/) to answer a question. |
+| **MCP server tool** | Call a tool on an external [MCP server](./mcp.md) to answer a question. |
 | **Agent call** | Use another agent as a tool — useful for assistants, MCP endpoints, and composition. |
-| **Scheduled agent management** | Let the agent create, query, and update the current user's [scheduled agent runs](/guides/automation/). |
+| **Scheduled agent management** | Let the agent create, query, and update the current user's [scheduled agent runs](./automation.md). |
 
 :::note
 Tools that read or modify data always operate within the current user's permissions. An agent
@@ -60,6 +60,6 @@ single agent could, say, search two different knowledge bases as two distinct to
 
 ## Related reading
 
-- [Agents](/guides/agents/) — attaching tools to an agent and how agent type gates them.
-- [Knowledge sources](/guides/knowledge-base/) — what the knowledge base search tool searches.
-- [MCP](/guides/mcp/) — exposing tools to external apps, or calling external tools.
+- [Agents](./agents.md) — attaching tools to an agent and how agent type gates them.
+- [Knowledge sources](./knowledge-base.md) — what the knowledge base search tool searches.
+- [MCP](./mcp.md) — exposing tools to external apps, or calling external tools.
