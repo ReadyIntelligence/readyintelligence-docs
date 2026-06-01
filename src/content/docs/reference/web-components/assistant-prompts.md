@@ -7,10 +7,10 @@ sidebar:
 ---
 
 `<ri-assistant-prompts>` displays a set of preset prompts as a button group or a list. Clicking
-one opens the [Assistant](/guides/assistants/) and launches that prompt.
+one opens the [Assistant](../../guides/assistants.md) and launches that prompt.
 
 Enable it on your assistant by ticking **Preset prompts list** in the assistant's
-[Web components](/reference/web-components/overview/#enabling-and-using-web-components) section.
+[Web components](./overview.mdx#enabling-and-using-web-components) section.
 
 ## Example use cases
 
@@ -69,5 +69,5 @@ Provide the prompts as a JSON array of strings in the `prompts` attribute:
 
 ## Related reading
 
-- [Web Components overview](/reference/web-components/overview/) — enabling components and embedding them.
-- [Assistants](/guides/assistants/) — the chat experience these prompts launch.
+- [Web Components overview](./overview.mdx) — enabling components and embedding them.
+- [Assistants](../../guides/assistants.md) — the chat experience these prompts launch.

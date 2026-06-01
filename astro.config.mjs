@@ -2,11 +2,21 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightThemeRapide from 'starlight-theme-rapide'
+import rehypeRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links';
 
 // https://astro.build/config
 export default defineConfig({
 	site: 'https://readyintelligence.github.io',
 	base: '/readyintelligence-docs',
+	markdown: {
+		rehypePlugins: [
+			[rehypeRelativeMarkdownLinks, {
+				base: '/readyintelligence-docs',
+				collections: { docs: { base: false } },
+				trailingSlash: 'always',
+			}],
+		],
+	},
 	integrations: [
 		starlight({
 			plugins: [starlightThemeRapide()],

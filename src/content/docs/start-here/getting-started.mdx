@@ -12,7 +12,7 @@ nothing to a working assistant your users can talk to. There are four steps, and
 each other — so it's best to do them in order.
 
 If you'd like to understand the concepts first, read [What is
-ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
+ReadyIntelligence?](./what-is-readyintelligence.md) before you begin.
 
 <Steps>
 
@@ -34,7 +34,7 @@ ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
    Each source feeds documents into the shared **knowledge base**, where they're indexed so AI
    can search them. Add the sources that matter, then let them index.
 
-   <LinkCard title="Knowledge sources" href="/guides/knowledge-base/" description="The available source types and how indexing works." />
+   <LinkCard title="Knowledge sources" href={`${import.meta.env.BASE_URL}/guides/knowledge-base/`} description="The available source types and how indexing works." />
 
 3. **Configure your agent**
 
@@ -45,8 +45,8 @@ ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
    You can experiment with the agent in its chat playground before putting it live.
 
    <CardGrid>
-     <LinkCard title="Agents" href="/guides/agents/" description="Every agent setting explained." />
-     <LinkCard title="Tools" href="/guides/tools/" description="The capabilities you can give an agent." />
+     <LinkCard title="Agents" href={`${import.meta.env.BASE_URL}/guides/agents/`} description="Every agent setting explained." />
+     <LinkCard title="Tools" href={`${import.meta.env.BASE_URL}/guides/tools/`} description="The capabilities you can give an agent." />
    </CardGrid>
 
 4. **Configure and embed your assistant**
@@ -55,7 +55,7 @@ ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
    it at the agent you configured. Set its welcome message, suggested prompts, look and feel,
    who's allowed to use it, and where it's embedded. Then add it to your site.
 
-   <LinkCard title="Assistants" href="/guides/assistants/" description="Welcome messages, theming, access, and embedding." />
+   <LinkCard title="Assistants" href={`${import.meta.env.BASE_URL}/guides/assistants/`} description="Welcome messages, theming, access, and embedding." />
 
 </Steps>
 
@@ -64,6 +64,6 @@ ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
 With those four steps done you have a working assistant grounded in your own content. From
 here you can:
 
-- Add **structured metadata** to your documents so AI can search and filter more precisely — see [Document metadata](/guides/knowledge-base/#document-metadata).
-- Run agents **automatically** on a schedule or via webhooks — see [Automation & scheduling](/guides/automation/).
-- Connect external AI apps through **MCP**, or let your agents call external tools — see [MCP](/guides/mcp/).
+- Add **structured metadata** to your documents so AI can search and filter more precisely — see [Document metadata](../guides/knowledge-base.md#document-metadata).
+- Run agents **automatically** on a schedule or via webhooks — see [Automation & scheduling](../guides/automation.md).
+- Connect external AI apps through **MCP**, or let your agents call external tools — see [MCP](../guides/mcp.md).

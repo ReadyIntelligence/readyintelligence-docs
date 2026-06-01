@@ -11,7 +11,7 @@ sidebar:
 and data. ReadyIntelligence supports MCP in **both directions**:
 
 - **Exposing your tools** — you can publish an **MCP endpoint** that external AI apps (such as Claude Desktop or ChatGPT) connect to, giving them access to selected tools from your platform, with proper authentication.
-- **Consuming external tools** — your [agents](/guides/agents/) can connect to an external **MCP server** and call its tools during a conversation, through the MCP server tool.
+- **Consuming external tools** — your [agents](./agents.md) can connect to an external **MCP server** and call its tools during a conversation, through the MCP server tool.
 
 This means your knowledge and capabilities aren't locked inside ReadyIntelligence's own chat
 UI — they can be used by whatever AI app a member or staff member already works in, and your
@@ -31,7 +31,7 @@ access to what the connecting user is permitted to see and do.
 
 An **MCP server** registration points ReadyIntelligence at an external MCP service. Once
 registered, its tools can be made available to an agent through the **MCP server tool**, so the
-agent can call them just like any built-in [tool](/guides/tools/).
+agent can call them just like any built-in [tool](./tools.md).
 
 ## Configuration options
 
@@ -52,9 +52,9 @@ endpoint.
 | Setting | Description |
 |---------|-------------|
 | **Server registration** | The external MCP service to connect to, and any credentials it requires. |
-| **Tool exposure** | Making the server's tools callable by attaching the MCP server tool to an [agent](/guides/agents/). |
+| **Tool exposure** | Making the server's tools callable by attaching the MCP server tool to an [agent](./agents.md). |
 
 ## Related reading
 
-- [Tools](/guides/tools/) — how the MCP server tool fits among the agent's other capabilities.
-- [Agents](/guides/agents/) — agents are what's exposed through, and what consumes, MCP.
+- [Tools](./tools.md) — how the MCP server tool fits among the agent's other capabilities.
+- [Agents](./agents.md) — agents are what's exposed through, and what consumes, MCP.

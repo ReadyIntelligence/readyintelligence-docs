@@ -7,10 +7,10 @@ sidebar:
 ---
 
 `<ri-assistant-input>` is a text input with a submit button. When the visitor submits their
-question, the [Assistant](/guides/assistants/) opens with that query already sent.
+question, the [Assistant](../../guides/assistants.md) opens with that query already sent.
 
 Enable it on your assistant by ticking **Quick-ask input** in the assistant's
-[Web components](/reference/web-components/overview/#enabling-and-using-web-components) section.
+[Web components](./overview.mdx#enabling-and-using-web-components) section.
 
 ## Example use cases
 
@@ -45,5 +45,5 @@ Enable it on your assistant by ticking **Quick-ask input** in the assistant's
 
 ## Related reading
 
-- [Web Components overview](/reference/web-components/overview/) — enabling components and embedding them.
-- [Assistants](/guides/assistants/) — the chat experience this input launches.
+- [Web Components overview](./overview.mdx) — enabling components and embedding them.
+- [Assistants](../../guides/assistants.md) — the chat experience this input launches.

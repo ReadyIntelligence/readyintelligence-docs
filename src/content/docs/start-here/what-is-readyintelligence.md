@@ -13,7 +13,7 @@ the background.
 It's made up of a small number of building blocks that work together. This page explains each
 one in plain language and shows how they relate; the dedicated guide for each block then goes
 deeper, including the configuration options available to developers. When you're ready to set it
-up, head to [Getting started](/start-here/getting-started/).
+up, head to [Getting started](./getting-started.mdx).
 
 ## The building blocks at a glance
 
@@ -45,7 +45,7 @@ Dropbox, and SharePoint.
 Every source feeds **documents** into the shared **knowledge base**, where their text is
 indexed so it can be searched. Documents can carry **structured metadata** (such as title,
 author, topics, or keywords), some of which AI can fill in automatically and even write back
-to the original record. See [Knowledge sources](/guides/knowledge-base/).
+to the original record. See [Knowledge sources](../guides/knowledge-base.md).
 
 ## Agents, assistants, and tools
 
@@ -62,12 +62,12 @@ theming, where it's embedded, and who's allowed to use it.
 **Tools** are the capabilities an agent can invoke during a conversation. The built-in
 knowledge base search tool is the most common, but tools can also query structured data,
 look up membership information, fetch metrics, call another agent, or reach an external
-system. See [Agents](/guides/agents/), [Assistants](/guides/assistants/), and
-[Tools](/guides/tools/).
+system. See [Agents](../guides/agents.md), [Assistants](../guides/assistants.md), and
+[Tools](../guides/tools.md).
 
 ## MCP
 
 **MCP** (Model Context Protocol) is an open standard for connecting AI apps to tools and data.
 ReadyIntelligence works in both directions: it can **expose** your own tools to external AI
 apps through MCP endpoints, and your agents can **consume** tools from external MCP servers.
-See [MCP](/guides/mcp/).
+See [MCP](../guides/mcp.md).
