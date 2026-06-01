@@ -1,0 +1,69 @@
+---
+title: Getting started
+description: Just logged in? Follow these four steps to go from an empty setup to a working AI assistant embedded on your site.
+sidebar:
+  order: 2
+---
+
+import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+
+Just logged in for the first time? This page walks you through getting ReadyIntelligence from
+nothing to a working assistant your users can talk to. There are four steps, and they build on
+each other — so it's best to do them in order.
+
+If you'd like to understand the concepts first, read [What is
+ReadyIntelligence?](/start-here/what-is-readyintelligence/) before you begin.
+
+<Steps>
+
+1. **Connect your AI provider**
+
+   ReadyIntelligence talks to a large language model to generate answers, so the first thing
+   to set up is a **credential** for your AI provider — the account and key that let the
+   platform call a model on your behalf.
+
+   Until this is in place, agents have no model to run on. Once you've added a credential you
+   can pick a default model, which every agent will use unless it's told otherwise.
+
+2. **Connect your knowledge sources**
+
+   On its own, a model only knows general information. To make it answer using *your* content,
+   add one or more **knowledge sources** — connections to where your content already lives
+   (uploaded documents, website pages, a resource library, cloud storage, and more).
+
+   Each source feeds documents into the shared **knowledge base**, where they're indexed so AI
+   can search them. Add the sources that matter, then let them index.
+
+   <LinkCard title="Knowledge sources" href="/guides/knowledge-base/" description="The available source types and how indexing works." />
+
+3. **Configure your agent**
+
+   An **agent** is the configurable AI "brain". Set its instructions and personality, choose a
+   model (or use your default), and attach the **tools** it's allowed to use — most importantly
+   the **knowledge base search** tool, so it can draw on the sources you just connected.
+
+   You can experiment with the agent in its chat playground before putting it live.
+
+   <CardGrid>
+     <LinkCard title="Agents" href="/guides/agents/" description="Every agent setting explained." />
+     <LinkCard title="Tools" href="/guides/tools/" description="The capabilities you can give an agent." />
+   </CardGrid>
+
+4. **Configure and embed your assistant**
+
+   Finally, create an **assistant** — the chat experience your users actually see — and point
+   it at the agent you configured. Set its welcome message, suggested prompts, look and feel,
+   who's allowed to use it, and where it's embedded. Then add it to your site.
+
+   <LinkCard title="Assistants" href="/guides/assistants/" description="Welcome messages, theming, access, and embedding." />
+
+</Steps>
+
+## What's next
+
+With those four steps done you have a working assistant grounded in your own content. From
+here you can:
+
+- Add **structured metadata** to your documents so AI can search and filter more precisely — see [Document metadata](/guides/knowledge-base/#document-metadata).
+- Run agents **automatically** on a schedule or via webhooks — see [Automation & scheduling](/guides/automation/).
+- Connect external AI apps through **MCP**, or let your agents call external tools — see [MCP](/guides/mcp/).

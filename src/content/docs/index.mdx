@@ -1,0 +1,68 @@
+---
+title: ReadyIntelligence
+description: Documentation for ReadyIntelligence — the AI assistants, knowledge base, agents, tools, and MCP in your membership and content platform.
+template: splash
+hero:
+  title: ReadyIntelligence Documentation
+  tagline: Your guide to setting up, configuring, and extending the AI layer of your platform — from your first login to advanced customisation.
+  image:
+    light: ../../assets/hero.svg
+    dark: ../../assets/hero.svg
+    alt: ReadyIntelligence
+  actions:
+    - text: Get Started
+      link: /start-here/getting-started/
+      icon: right-arrow
+    - text: What is ReadyIntelligence?
+      link: /start-here/what-is-readyintelligence/
+      icon: right-arrow
+      variant: minimal
+---
+
+import {
+  Card,
+  CardGrid,
+  LinkCard,
+  LinkButton,
+} from "@astrojs/starlight/components";
+
+<CardGrid>
+  <LinkCard
+    title="Knowledge Sources"
+    href="/guides/knowledge-base/"
+    description="Ground AI answers in your own content."
+  />
+  <LinkCard
+    title="Agents"
+    href="/guides/agents/"
+    description="The configurable AI brain behind every chat."
+  />
+  <LinkCard
+    title="Assistants"
+    href="/guides/assistants/"
+    description="The chat experiences your users talk to."
+  />
+  <LinkCard
+    title="MCP"
+    href="/guides/mcp/"
+    description="Connect external AI apps to your tools."
+  />
+</CardGrid>
+
+<article class="ri-about sl-flex">
+  <p class="ri-about-title">New to ReadyIntelligence?</p>
+  <p class="ri-about-text">
+    These docs are for teams already using ReadyIntelligence — the
+    next-generation AI platform that connects everything your organisation knows
+    and makes it instantly accessible through an intelligent assistant you can
+    deploy anywhere. If you're not using it yet, book a demo and we'll walk you
+    through it.
+  </p>
+  <LinkButton
+    href="https://readyintelligence.com/contact.html"
+    icon="external"
+    target="_blank"
+  >
+    Book a demo
+  </LinkButton>
+</article>
