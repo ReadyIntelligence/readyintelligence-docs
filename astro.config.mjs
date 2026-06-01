@@ -5,6 +5,8 @@ import starlightThemeRapide from 'starlight-theme-rapide'
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://readyintelligence.github.io',
+	base: '/readyintelligence-docs',
 	integrations: [
 		starlight({
 			plugins: [starlightThemeRapide()],
