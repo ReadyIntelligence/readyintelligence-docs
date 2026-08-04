@@ -1,0 +1,101 @@
+---
+title: "What is ReadyIntelligence?"
+description: ReadyIntelligence is an AI platform for embedding assistants, building agents and skills, indexing knowledge, and automating workflows with MCP, schedules, and webhooks.
+sidebar:
+  order: 1
+---
+
+**ReadyIntelligence** is an AI platform for your organisation. It lets you embed conversational
+**assistants** on your websites, ground them in your own **knowledge**, augment them with
+**skills** and external tools, and run **agents** in the backoffice — on a schedule, via
+webhooks, or as MCP endpoints other systems can call.
+
+## What you can do
+
+With ReadyIntelligence you can:
+
+1. Create **assistant** interfaces and embed them in your website
+2. Create **agent** definitions for assistants and for backoffice tasks
+3. Create **skills** and assign them to agents to augment their behaviour
+4. Index **knowledge** into a searchable vector store and connect it via agents and/or skills
+5. Register remote **MCP servers** and connect them to assistants (via agents)
+6. Create **MCP endpoints** that expose knowledge tools, MCP tools, and agents elsewhere
+7. Create **scheduled** backoffice agent calls and register **webhook** agent calls
+8. Register **third-party user systems** for authentication with embedded assistants — user claims can also be passed through as headers to third-party MCP servers for advanced integrations
+
+## Two common journeys
+
+Most teams start with one of these:
+
+| Journey | Goal |
+|---------|------|
+| **Embed an assistant** | Put an advanced chat interface on your website, connected to skills, knowledge, and external tools. |
+| **Automate with agents** | Use ReadyIntelligence in your workflows — scheduled calls, webhooks, and MCP endpoints other systems can consume. |
+
+Follow [Getting started: Embed an assistant](./getting-started.mdx) or
+[Getting started: Automate with agents](./getting-started-automation.mdx). The guides below go
+deeper on each building block.
+
+## The building blocks at a glance
+
+| Block | In one sentence |
+|-------|-----------------|
+| **Knowledge source** | A place your content lives — uploaded files, website pages, a resource library, cloud storage, a crawled site, and so on. |
+| **Knowledge base** | The searchable vector store that all your knowledge sources feed into, so AI can find relevant content by meaning. |
+| **Document** | A single indexed item (an article, a file, a video) inside the knowledge base, with optional structured metadata. |
+| **Agent** | The configurable AI "brain": how to behave, which model to use, what tools and skills it's allowed to use. |
+| **Skill** | A reusable instruction pack (with optional resources and tools) that an agent loads on demand when relevant. |
+| **Tool** | A specific capability an agent can call mid-conversation — searching the knowledge base, querying data, calling MCP, and more. |
+| **Assistant** | The chat experience users actually use, backed by an agent. |
+| **MCP** | A standard way to connect external AI apps to your tools, or your agents to external tools. |
+
+## How a question gets answered
+
+1. A user opens an **assistant** and asks a question.
+2. The assistant passes the conversation to its **agent**, along with the agent's instructions, personality, available **skills**, and the list of **tools** it may use.
+3. The agent sends everything to a **language model** (platform-managed by default), which decides whether to answer directly, load a skill, or call a tool.
+4. If the model loads a **skill**, it receives specialised instructions and may unlock skill-bundled tools and resources for the rest of the conversation.
+5. If the model calls the **knowledge base search** tool, ReadyIntelligence searches **documents** drawn from your **knowledge sources** and returns the most relevant passages, with their sources.
+6. The model uses those passages (and any other tool results) to compose a grounded answer, which streams back into the assistant.
+
+## Knowledge: sources, the base, and documents
+
+A **knowledge source** is an admin-configured connection to somewhere your content lives. Each
+source is of a particular **type** — for example uploaded documents, asset-manager files,
+website pages, a resource library, a crawled website, or cloud storage like Google Drive,
+Dropbox, and SharePoint.
+
+Every source feeds **documents** into the shared **knowledge base**, where their text is
+indexed for semantic (vector) search. Documents can carry **structured metadata** (such as title,
+author, topics, or keywords), some of which AI can fill in automatically and even write back
+to the original record. See [Knowledge sources](../guides/knowledge-base.md).
+
+## Agents, skills, assistants, and tools
+
+An **agent** is a saved configuration that decides how the AI behaves: its instructions and
+personality, which language model to use (platform default unless you override it), whether it
+remembers past conversations, which **tools** it can call, and which **skills** it may load.
+Each agent has a **type** (for example a public-facing agent or an admin/automation agent) that
+controls which tools and skills are appropriate for it.
+
+A **skill** is a reusable pack of specialised instructions — optionally with instruction
+fragments, attached resources, and tools that activate after the skill is loaded. Skills are
+assigned to agents (and MCP endpoints); assistants inherit them through their default agent.
+See [Skills](../guides/skills.md).
+
+An **assistant** is the actual chat experience a user interacts with. It points at a default
+agent and adds presentation and access settings — welcome message, suggested prompts,
+theming, where it's embedded, and who's allowed to use it.
+
+**Tools** are the capabilities an agent can invoke during a conversation. The built-in
+knowledge base search tool is the most common, but tools can also query structured data,
+look up membership information, fetch metrics, call another agent, or reach an external
+system. See [Agents](../guides/agents.md), [Assistants](../guides/assistants.md), and
+[Tools](../guides/tools.md).
+
+## MCP
+
+**MCP** (Model Context Protocol) is an open standard for connecting AI apps to tools and data.
+ReadyIntelligence works in both directions: it can **expose** your tools, knowledge, and agents
+to external AI apps through MCP endpoints, and your agents can **consume** tools from external
+MCP servers. Global skills can also be assigned to MCP endpoints. See [MCP](../guides/mcp.md).

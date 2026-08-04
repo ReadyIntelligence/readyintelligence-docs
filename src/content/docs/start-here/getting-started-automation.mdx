@@ -1,0 +1,77 @@
+---
+title: Getting started — Automate with agents
+description: Use ReadyIntelligence in your workflows — scheduled agent calls, webhooks, and MCP endpoints other systems can consume.
+sidebar:
+  order: 3
+---
+
+import { Steps, LinkCard, CardGrid, Aside } from '@astrojs/starlight/components';
+
+ReadyIntelligence isn't only for chat widgets. This page walks you through using **agents** in
+your workflows: running them on a schedule, triggering them from webhooks, and exposing them
+(along with knowledge and tools) as **MCP endpoints** other systems can call.
+
+If you want a chat experience on your website first, see
+[Getting started: Embed an assistant](./getting-started.mdx). For the building blocks in plain
+language, read [What is ReadyIntelligence?](./what-is-readyintelligence.mdx).
+
+<Aside type="note" title="Your own LLM credentials">
+Most sites use **platform-managed** language models — you do not need to add API keys to get
+started. Adding your own credentials is available only when it has been enabled for your
+account.
+</Aside>
+
+<Aside type="tip" title="Feature availability">
+Scheduled calls, webhooks, and some MCP options may need to be enabled for your site. If you
+don't see them in the admin, contact your ReadyIntelligence contact.
+</Aside>
+
+<Steps>
+
+1. **Create an admin / automation agent**
+
+   Choose an **admin / automation** agent type so the agent can use the fuller set of
+   backoffice tools. Give it clear instructions for the jobs you'll automate, attach the
+   [tools](../guides/tools.md) it needs (for example knowledge base search or data tools), and
+   optionally assign [skills](../guides/skills.md).
+
+   Index [knowledge sources](../guides/knowledge-base.md) if the agent should ground answers or
+   reports in your content.
+
+   <CardGrid>
+     <LinkCard title="Agents" href={`${import.meta.env.BASE_URL}/guides/agents/`} description="Agent types, tools, skills, and model settings." />
+     <LinkCard title="Skills" href={`${import.meta.env.BASE_URL}/guides/skills/`} description="Reusable instruction packs for specialised work." />
+   </CardGrid>
+
+2. **Schedule calls and/or register webhooks**
+
+   **Scheduled agent calls** run the agent on a recurring timetable with a fixed prompt — useful
+   for daily reports, monitoring, or recurring checks.
+
+   **Webhook triggers** let an external system start a run by calling a URL, with your fixed
+   instruction combined with the incoming payload.
+
+   <LinkCard title="Automation & scheduling" href={`${import.meta.env.BASE_URL}/guides/automation/`} description="Schedules, webhooks, run history, and ownership." />
+
+3. **Create MCP endpoints**
+
+   Publish an **MCP endpoint** so external AI apps or other systems can call selected tools —
+   including knowledge search, other MCP tools, and agents as tools — with authentication you
+   control. You can also assign global skills to an endpoint.
+
+   <LinkCard title="MCP" href={`${import.meta.env.BASE_URL}/guides/mcp/`} description="Expose endpoints and consume external MCP servers." />
+
+4. **Connect from external AI apps** *(optional)*
+
+   Point Claude Desktop, ChatGPT, or another MCP-capable client at your endpoint using the
+   connection details from the admin. Clients only get access to what the authenticated
+   identity is allowed to see and do.
+
+</Steps>
+
+## What's next
+
+- Embed a website **assistant** powered by a related agent — see [Getting started: Embed an assistant](./getting-started.mdx).
+- Register **remote MCP servers** so your agents can call tools hosted elsewhere — see [MCP](../guides/mcp.md).
+- Call the **REST API** with an API user token — see [API users](../guides/api-users.mdx).
+- Pass **user claims** through to third-party MCP servers from authenticated assistants — see [Third-party authentication](../guides/third-party-auth.md).

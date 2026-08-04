@@ -1,6 +1,6 @@
 ---
 title: Agents
-description: The configurable AI 'brain' behind every assistant — model, instructions, personality, memory, tools, and agent types, plus all the settings available.
+description: The configurable AI 'brain' behind every assistant — model, instructions, personality, memory, tools, skills, and agent types, plus all the settings available.
 sidebar:
   order: 4
 ---
@@ -10,8 +10,9 @@ sidebar:
 An **agent** is the configurable AI "brain" that powers a conversation. When a user asks a
 question through an [assistant](./assistants.md), it's the agent that decides how to
 respond: it takes the conversation, adds its own instructions and personality, and sends it to
-a **language model** along with the list of [tools](./tools.md) it's allowed to use. The
-model then either answers directly or calls a tool to gather more information first.
+a **language model** along with the list of [tools](./tools.md) and [skills](./skills.md) it's
+allowed to use. The model then either answers directly, loads a skill, or calls a tool to gather
+more information first.
 
 You can think of an agent as a saved recipe for AI behaviour. The same agent can power several
 assistants, be triggered by automations, or be exposed to external apps — its configuration
@@ -20,16 +21,16 @@ stays the same wherever it's used.
 ### Agent types
 
 Every agent has a **type** (or "class") that reflects where it's meant to operate and which
-tools make sense for it:
+tools and skills make sense for it:
 
 | Type | Purpose |
 |------|---------|
-| **Public agent** | For public-facing conversations. Has access to a limited, public-safe set of tools. |
+| **Public agent** | For public-facing conversations. Has access to a limited, public-safe set of tools and skills. |
 | **Admin / automation agent** | For use in the admin interface, workflows, automations, and similar scenarios. Has access to all non-public tools, including ones that can read and change data. |
 
-The type matters because [tools](./tools.md) declare which agent types they're appropriate
-for — a tool that can edit records, for instance, will only be offered to admin/automation
-agents, never to public ones.
+The type matters because [tools](./tools.md) and [skills](./skills.md) declare which agent types
+they're appropriate for — a tool that can edit records, for instance, will only be offered to
+admin/automation agents, never to public ones.
 
 ### Memory and threads
 
@@ -54,9 +55,12 @@ When you create or edit an agent, the following settings are available.
 
 ### Language model
 
+Agents use **platform-managed** models by default. You only need to pick a credential when your
+own LLM credentials have been enabled for your account and you want to override the default.
+
 | Setting | Description |
 |---------|-------------|
-| **LLM credential** | Which set of model credentials to use, or the system default. |
+| **LLM credential** | Optional. Which set of model credentials to use, or the platform / system default. |
 | **Language model** | The specific model the agent runs on, or the system default. |
 | **Max tokens** | The maximum length of the model's response. Smaller values keep answers concise. |
 | **Temperature** | How "creative" or random the response is. `0` is the most deterministic; values are typically in the `0`–`2` range depending on the model. |
@@ -75,7 +79,13 @@ When you create or edit an agent, the following settings are available.
 
 | Setting | Description |
 |---------|-------------|
-| **Tools** | The [tools](./tools.md) attached to this agent. Only tools appropriate to the agent's type can be added, and each tool can carry its own configuration. |
+| **Tools** | The [tools](./tools.md) attached to this agent. Only tools appropriate to the agent's type can be added, and each tool can carry its own configuration. These tools are always available during a conversation. |
+
+### Skills
+
+| Setting | Description |
+|---------|-------------|
+| **Skills** | Global [skills](./skills.md) assigned to this agent. The agent can discover and load them on demand; skill-bundled tools activate only after a skill is loaded. Audience must match the agent type. |
 
 ### Automation
 
@@ -88,4 +98,6 @@ When you create or edit an agent, the following settings are available.
 
 - [Assistants](./assistants.md) — how an agent is surfaced to users.
 - [Tools](./tools.md) — the capabilities you attach to an agent.
+- [Skills](./skills.md) — reusable instruction packs loaded on demand.
 - [Automation & scheduling](./automation.md) — running agents on a schedule or via webhooks.
+- [Getting started: Automate with agents](../start-here/getting-started-automation.mdx) — workflow-oriented setup path.

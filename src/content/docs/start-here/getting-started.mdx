@@ -1,46 +1,33 @@
 ---
-title: Getting started
-description: Just logged in? Follow these four steps to go from an empty setup to a working AI assistant embedded on your site.
+title: Getting started — Embed an assistant
+description: Just logged in? Follow these steps to go from an empty setup to a working AI assistant embedded on your site.
 sidebar:
   order: 2
 ---
 
-import { Steps, LinkCard, CardGrid } from '@astrojs/starlight/components';
+import { Steps, LinkCard, CardGrid, Aside } from '@astrojs/starlight/components';
 
 Just logged in for the first time? This page walks you through getting ReadyIntelligence from
-nothing to a working assistant your users can talk to. There are four steps, and they build on
-each other — so it's best to do them in order.
+nothing to a working **assistant** your users can talk to on your website.
 
-If you'd like to understand the concepts first, read [What is
-ReadyIntelligence?](./what-is-readyintelligence.md) before you begin.
+If you'd rather automate backoffice work with schedules, webhooks, and MCP endpoints, see
+[Getting started: Automate with agents](./getting-started-automation.mdx) instead. If you'd
+like to understand the concepts first, read
+[What is ReadyIntelligence?](./what-is-readyintelligence.mdx).
+
+<Aside type="note" title="Your own LLM credentials">
+Most sites use **platform-managed** language models — you do not need to add API keys to get
+started. Adding your own credentials is available only when it has been enabled for your
+account. Skip that unless you have been told it is available.
+</Aside>
 
 <Steps>
 
-1. **Connect your AI provider**
+1. **Configure your agent**
 
-   ReadyIntelligence talks to a large language model to generate answers, so the first thing
-   to set up is a **credential** for your AI provider — the account and key that let the
-   platform call a model on your behalf.
-
-   Until this is in place, agents have no model to run on. Once you've added a credential you
-   can pick a default model, which every agent will use unless it's told otherwise.
-
-2. **Connect your knowledge sources**
-
-   On its own, a model only knows general information. To make it answer using *your* content,
-   add one or more **knowledge sources** — connections to where your content already lives
-   (uploaded documents, website pages, a resource library, cloud storage, and more).
-
-   Each source feeds documents into the shared **knowledge base**, where they're indexed so AI
-   can search them. Add the sources that matter, then let them index.
-
-   <LinkCard title="Knowledge sources" href={`${import.meta.env.BASE_URL}/guides/knowledge-base/`} description="The available source types and how indexing works." />
-
-3. **Configure your agent**
-
-   An **agent** is the configurable AI "brain". Set its instructions and personality, choose a
-   model (or use your default), and attach the **tools** it's allowed to use — most importantly
-   the **knowledge base search** tool, so it can draw on the sources you just connected.
+   An **agent** is the configurable AI "brain". Set its instructions and personality, leave the
+   model on the system default (or pick one), and attach the **tools** it's allowed to use —
+   most importantly the **knowledge base search** tool once you have sources indexed.
 
    You can experiment with the agent in its chat playground before putting it live.
 
@@ -49,11 +36,34 @@ ReadyIntelligence?](./what-is-readyintelligence.md) before you begin.
      <LinkCard title="Tools" href={`${import.meta.env.BASE_URL}/guides/tools/`} description="The capabilities you can give an agent." />
    </CardGrid>
 
+2. **Connect your knowledge sources** *(optional but recommended)*
+
+   On its own, a model only knows general information. To make it answer using *your* content,
+   add one or more **knowledge sources** — connections to where your content already lives
+   (uploaded documents, website pages, a resource library, cloud storage, and more).
+
+   Each source feeds documents into the shared **knowledge base**, where they're indexed for
+   semantic search. Add the sources that matter, let them index, then make sure your agent has
+   the knowledge base search tool.
+
+   <LinkCard title="Knowledge sources" href={`${import.meta.env.BASE_URL}/guides/knowledge-base/`} description="The available source types and how indexing works." />
+
+3. **Create and assign skills** *(optional)*
+
+   **Skills** are reusable instruction packs the agent can load on demand when a conversation
+   needs specialised guidance — with optional resources and tools that activate after the skill
+   is loaded. Create skills in the Skills library and assign them to your agent.
+
+   <LinkCard title="Skills" href={`${import.meta.env.BASE_URL}/guides/skills/`} description="Authoring, assignment, and how progressive disclosure works." />
+
 4. **Configure and embed your assistant**
 
-   Finally, create an **assistant** — the chat experience your users actually see — and point
-   it at the agent you configured. Set its welcome message, suggested prompts, look and feel,
-   who's allowed to use it, and where it's embedded. Then add it to your site.
+   Create an **assistant** — the chat experience your users actually see — and point it at the
+   agent you configured. Set its welcome message, suggested prompts, look and feel, who's
+   allowed to use it, and where it's embedded. Then add it to your site.
+
+   Skills, tools, and knowledge reach the assistant through its default agent — you don't
+   configure them on the assistant itself.
 
    <LinkCard title="Assistants" href={`${import.meta.env.BASE_URL}/guides/assistants/`} description="Welcome messages, theming, access, and embedding." />
 
@@ -61,9 +71,11 @@ ReadyIntelligence?](./what-is-readyintelligence.md) before you begin.
 
 ## What's next
 
-With those four steps done you have a working assistant grounded in your own content. From
-here you can:
+With those steps done you have a working assistant grounded in your own content. From here you
+can:
 
+- Use **inline** or **fullscreen** display styles when you need the assistant inside your own layout (for example a sidebar) — see [Embedding the assistant](../guides/embedding.md).
+- Register **remote MCP servers** so the agent can call external tools — see [MCP](../guides/mcp.md).
+- Set up **third-party authentication** for embedded assistants on external sites — see [Third-party authentication](../guides/third-party-auth.md).
 - Add **structured metadata** to your documents so AI can search and filter more precisely — see [Document metadata](../guides/knowledge-base.md#document-metadata).
-- Run agents **automatically** on a schedule or via webhooks — see [Automation & scheduling](../guides/automation.md).
-- Connect external AI apps through **MCP**, or let your agents call external tools — see [MCP](../guides/mcp.md).
+- Run agents **automatically** on a schedule or via webhooks — see [Getting started: Automate with agents](./getting-started-automation.mdx).

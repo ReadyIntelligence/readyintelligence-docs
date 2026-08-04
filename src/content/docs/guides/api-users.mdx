@@ -1,0 +1,97 @@
+---
+title: API users
+description: Create API users and bearer tokens to authenticate programmatic requests to the ReadyIntelligence REST API.
+sidebar:
+  order: 9
+---
+
+import { Steps, Aside, LinkCard } from '@astrojs/starlight/components';
+
+## Introduction
+
+The ReadyIntelligence **REST API** lets you manage knowledge and related configuration
+programmatically — for example indexing documents into datasources, or configuring identity
+providers used by embedded assistants.
+
+Access is authenticated with **API users**. Each API user has a long-lived **bearer token** you
+send on every request.
+
+<LinkCard
+  title="REST API reference"
+  href={`${import.meta.env.BASE_URL}/api/ri/`}
+  description="Operations and schemas generated from the OpenAPI specification."
+/>
+
+## Create an API user
+
+API users are managed in the admin under **Configuration → API Users** (when the API feature is
+enabled for your site).
+
+<Steps>
+
+1. **Add an API user**
+
+   Open **API Users** and choose **Add API User**. Give the user a clear **label** (unique) and
+   an optional internal **description** — for example which integration or environment will use
+   the token.
+
+2. **Copy the bearer token immediately**
+
+   When the user is created, ReadyIntelligence shows the full token **once**. Copy and store it
+   somewhere secure (secrets manager, CI variables, and so on). You will not be able to view the
+   full token again from the listing — only a masked preview.
+
+   Tokens look like `ri-…`.
+
+3. **Use the token on API requests**
+
+   Send it as a Bearer token:
+
+   ```http
+   Authorization: Bearer ri-your-token-here
+   ```
+
+   The API base path on your site is:
+
+   ```text
+   https://<your-app>.readyintelligence.app/api/ri/v1
+   ```
+
+</Steps>
+
+<Aside type="caution" title="Treat tokens as secrets">
+Anyone with a valid token can call the API as that user. Do not commit tokens to source control
+or share them in chat. Prefer environment variables or a secrets store in your integrations.
+</Aside>
+
+## Refresh a token
+
+If a token is lost or compromised, open the API user record and **refresh** the token. The
+previous token stops working immediately. The new token is shown once — copy it the same way as
+on create.
+
+## Explore the API
+
+- **In this documentation:** use the REST API reference card above — pages are generated from the
+  OpenAPI specification checked into this docs site.
+- **On your deployment:** interactive Swagger UI is available at
+  `/api/ri/v1/docs/swagger/` (also linked from the API Users listing in the admin).
+
+Use the in-product Swagger UI when you want to try calls against a live environment. Use this
+docs site when you want a static, versioned reference for integrators.
+
+## What the API covers
+
+Typical areas (exact operations depend on features enabled for your site):
+
+| Area | Examples |
+|------|----------|
+| **Knowledge** | Datasources, documents, custom fields and lookups |
+| **Third-party auth** | Identity providers, custom claims and lookups for embedded assistants |
+
+Open the REST API reference for the full operation list from the current OpenAPI file.
+
+## Related reading
+
+- [Knowledge sources](./knowledge-base.md) — how indexed content is organised in the product.
+- [Third-party authentication](./third-party-auth.md) — identity providers for assistants (also manageable via API where exposed).

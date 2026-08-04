@@ -2,7 +2,10 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import starlightThemeRapide from 'starlight-theme-rapide'
+import starlightOpenAPI, { createOpenAPISidebarGroup } from 'starlight-openapi'
 import rehypeRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links';
+
+const riApiSidebarGroup = createOpenAPISidebarGroup()
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +22,23 @@ export default defineConfig({
 	},
 	integrations: [
 		starlight({
-			plugins: [starlightThemeRapide()],
+			plugins: [
+				starlightThemeRapide(),
+				starlightOpenAPI([
+					{
+						base: 'api/ri',
+						schema: './openapi/ri-api.openapi.json',
+						sidebar: {
+							label: 'REST API',
+							collapsed: true,
+							group: riApiSidebarGroup,
+							operations: {
+								badges: true,
+							},
+						},
+					},
+				]),
+			],
 			components: {
 				// Default to dark mode (visitors can still toggle).
 				ThemeProvider: './src/components/ThemeProvider.astro',
@@ -38,7 +57,8 @@ export default defineConfig({
 					label: 'Start Here',
 					items: [
 						{ label: 'What Is ReadyIntelligence?', slug: 'start-here/what-is-readyintelligence' },
-						{ label: 'Getting Started', slug: 'start-here/getting-started' },
+						{ label: 'Getting Started: Embed an Assistant', slug: 'start-here/getting-started' },
+						{ label: 'Getting Started: Automate with Agents', slug: 'start-here/getting-started-automation' },
 					],
 				},
 				{
@@ -50,11 +70,20 @@ export default defineConfig({
 							items: [
 								{ label: 'Overview', slug: 'guides/agents' },
 								{ label: 'Tools', slug: 'guides/tools' },
+								{ label: 'Skills', slug: 'guides/skills' },
 								{ label: 'Automation & Scheduling', slug: 'guides/automation' },
 							],
 						},
-						{ label: 'Assistants', slug: 'guides/assistants' },
+						{
+							label: 'Assistants',
+							items: [
+								{ label: 'Overview', slug: 'guides/assistants' },
+								{ label: 'Embedding', slug: 'guides/embedding' },
+								{ label: 'Third-party Authentication', slug: 'guides/third-party-auth' },
+							],
+						},
 						{ label: 'MCP', slug: 'guides/mcp' },
+						{ label: 'API Users', slug: 'guides/api-users' },
 					],
 				},
 				{
@@ -69,6 +98,7 @@ export default defineConfig({
 								{ label: 'Assistant Prompts', slug: 'reference/web-components/assistant-prompts' },
 							],
 						},
+						riApiSidebarGroup,
 					],
 				},
 			],

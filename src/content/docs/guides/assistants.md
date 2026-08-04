@@ -1,6 +1,6 @@
 ---
 title: Assistants
-description: The chat experiences that surface an agent to members, staff, or external sites — welcome messages, suggestions, theming, embedding, and access modes.
+description: The chat experiences that surface an agent on your websites or in admin — welcome messages, suggestions, theming, embedding, and access modes.
 sidebar:
   order: 5
 ---
@@ -16,6 +16,9 @@ means you can present the same underlying agent in different ways — a friendly
 your website, and a staff-only assistant inside the admin interface, for example — without
 duplicating its configuration.
 
+[Skills](./skills.md), [tools](./tools.md), and knowledge reach the assistant **through that
+default agent**. You do not assign skills on the assistant itself.
+
 When a user starts chatting, the assistant streams the agent's responses back in real time, and
 can offer **saved prompts** and suggested questions to help people get started.
 
@@ -25,8 +28,8 @@ An assistant can be embedded in different contexts:
 
 | Embed mode | Where it runs |
 |------------|---------------|
-| **Internal** | Embedded in a website hosted on this platform, with user accounts managed here. |
-| **External** | Embedded in an external website, with user identity handled by that external site. |
+| **Internal** | Embedded in a website hosted alongside ReadyIntelligence, with user accounts managed there. |
+| **External** | Embedded in an external website. User identity is typically handled by a [third-party identity provider](./third-party-auth.md). |
 | **Admin** | Embedded inside the admin interface, for staff. |
 
 ### Who can use it
@@ -39,17 +42,34 @@ Access is controlled by an **authentication mode**:
 | **Mixed mode** | Guests can use it, but are prompted to log in to unlock all features. |
 | **Anonymous mode** | Everyone is treated as an anonymous user; no authentication. |
 
+For external embeds, pair required or mixed mode with an identity provider so users from your
+own system are recognised. See [Third-party authentication](./third-party-auth.md).
+
 ## Configuration options
 
 ### Core configuration
 
 | Setting | Description |
 |---------|-------------|
-| **Default agent** | The [agent](./agents.md) that powers the assistant's conversations. |
+| **Default agent** | The [agent](./agents.md) that powers the assistant's conversations (including its tools and skills). |
 | **Welcome message** | An optional opening message shown when a new conversation starts, e.g. "Hi, I'm Clara and I can help you. Ask a question to get started!" |
 | **Suggested prompts** | Up to three starter prompts offered to the user. |
 | **Embed mode** | Internal, external, or admin — see [above](#where-an-assistant-lives). |
 | **Authentication mode** | Who can access the assistant — see [above](#who-can-use-it). |
+| **Identity provider** | Optional. The [third-party identity provider](./third-party-auth.md) used when the assistant authenticates external users. |
+
+### Display style
+
+**Display style** controls how the assistant appears on the page:
+
+| Style | Behaviour |
+|-------|-----------|
+| **Floating** *(default)* | Floating trigger button and overlay chat window — flexible on any website with little host CSS. |
+| **Inline** | Assistant fills a container in your layout (for example a sidebar). You own sizing, collapse behaviour, and surrounding CSS. |
+| **Fullscreen** | Assistant fills the viewport — suited to a dedicated page or route. |
+
+See [Embedding the assistant](./embedding.md) for when to use each style and what advanced
+(inline / fullscreen) embeds require from the host site.
 
 ### Appearance
 
@@ -67,8 +87,9 @@ explicitly, the available settings include:
 | **Secondary colour** | Supporting colour for subtle highlights and hover states. |
 | **Links** | Colour for links inside the assistant. |
 
-A floating trigger button (its shape, icon, size, position, and tooltip) can also be configured
-for assistants that pop up over a website.
+For **floating** assistants, a trigger button (shape, icon, colours, position, tooltip, and
+related layout options) can also be configured. Those floating-only controls do not apply to
+inline or fullscreen display styles.
 
 ### Saved prompts
 
@@ -90,6 +111,10 @@ drop the elements straight into your markup. See [Web Components](../reference/w
 ## Related reading
 
 - [Agents](./agents.md) — the brain behind every assistant.
+- [Skills](./skills.md) — specialised instruction packs on the default agent.
 - [Tools](./tools.md) — what the backing agent can do during a conversation.
+- [Embedding the assistant](./embedding.md) — floating, inline, and fullscreen display styles.
+- [Third-party authentication](./third-party-auth.md) — identity providers for external embeds.
 - [Web Components](../reference/web-components/overview.mdx) — embed buttons, inputs, and prompt lists that launch the assistant.
 - [MCP](./mcp.md) — exposing agents to external AI apps instead of (or as well as) an assistant UI.
+- [Getting started: Embed an assistant](../start-here/getting-started.mdx) — end-to-end embed path.

@@ -1,6 +1,6 @@
 ---
 title: Tools
-description: The capabilities an agent can call during a conversation — the built-in tools and how they're configured per agent.
+description: The capabilities an agent can call during a conversation — the built-in tools, how they're configured per agent, and how they differ from skill tools.
 sidebar:
   order: 6
 ---
@@ -23,9 +23,19 @@ Which tools an agent may use depends on its [type](./agents.md#agent-types): pub
 agents are offered a safe subset, while admin/automation agents can use more powerful tools that
 read or change data.
 
+### Agent tools vs skill tools
+
+| Kind | When available |
+|------|----------------|
+| **Agent tools** | Always available for the whole conversation once attached to the agent. |
+| **Skill tools** | Bundled with a [skill](./skills.md). They appear only after the model **loads** that skill in the current thread. |
+
+Use agent tools for capabilities the agent should always have (for example knowledge base search).
+Use skill tools for specialised capabilities that only make sense inside a particular skill.
+
 ## Built-in tools
 
-ReadyIntelligence ships with a range of tools you can attach to agents:
+ReadyIntelligence ships with a range of tools you can attach to agents (and to skills):
 
 | Tool | What it lets the agent do |
 |------|---------------------------|
@@ -61,5 +71,6 @@ single agent could, say, search two different knowledge bases as two distinct to
 ## Related reading
 
 - [Agents](./agents.md) — attaching tools to an agent and how agent type gates them.
+- [Skills](./skills.md) — tools that activate only after a skill is loaded.
 - [Knowledge sources](./knowledge-base.md) — what the knowledge base search tool searches.
 - [MCP](./mcp.md) — exposing tools to external apps, or calling external tools.

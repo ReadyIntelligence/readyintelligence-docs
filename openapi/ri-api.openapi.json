@@ -1,0 +1,3624 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "version": "1.0.0",
+    "x-favicon": "",
+    "title": "ReadyIntelligence API Documentation",
+    "description": "API interfacing with the ReadyIntelligence system."
+  },
+  "servers": [
+    {
+      "url": "https://<your-app>.readyintelligence.app/api/ri/v1"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "datasourcesupsertWithId": {
+        "required": [
+          "id",
+          "label",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label/title of the datasource. Used internally to identify the datasource."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the datasource. Set a helpful description to communicate the purpose of the datasource to other system users."
+          }
+        }
+      },
+      "customfieldlookups": {
+        "required": [
+          "id",
+          "field",
+          "key",
+          "value",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "field": {
+            "type": "integer",
+            "description": "The custom field to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field lookup, e.g. `admin` or `1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom field lookup, e.g. `Admin` or `ACME solutions`, etc."
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "idprovidersupsert": {
+        "required": [
+          "label",
+          "third_party_auth_method"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Label/title of the identity provider. Used internally to identify the identity provider."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the identity provider. Set a helpful description to communicate the purpose of the identity provider to other system users."
+          },
+          "third_party_auth_method": {
+            "type": "string",
+            "enum": [
+              "oidc",
+              "jwt"
+            ],
+            "description": ""
+          },
+          "jwt_issuer": {
+            "type": "string",
+            "description": "The issuer of the JWT token."
+          },
+          "jwt_audience": {
+            "type": "string",
+            "description": "The audience of the JWT token."
+          },
+          "jwt_signing_alg": {
+            "type": "string",
+            "enum": [
+              "ES256",
+              "ES384",
+              "ES512",
+              "RS256",
+              "RS384",
+              "RS512",
+              "HS256",
+              "HS384",
+              "HS512"
+            ],
+            "description": "The signing algorithm of the JWT token."
+          },
+          "jwt_verification_key": {
+            "type": "string",
+            "description": "The verification key of the JWT token (i.e. public key for asynchronous algorithms or shared secret key for synchronous algorithms)"
+          },
+          "oidc_discovery_url": {
+            "type": "string",
+            "description": "The OpenID Connect discovery document URL. Endpoints (issuer, authorization, token, JWKS, userinfo) are read from this document."
+          },
+          "oidc_client_id": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_client_secret": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_additional_claims": {
+            "type": "string",
+            "description": "Optional. Comma, space, or newline-separated claim names to request from the IdP (OpenID Connect claims request parameter), in addition to the standard claims that match the scopes openid, email and profile. Duplicate names are ignored."
+          }
+        }
+      },
+      "validationFailureMultiplecustomfieldlookups": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/customfieldlookupsupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Custom Field Lookups**"
+      },
+      "idprovidersupsertWithId": {
+        "required": [
+          "id",
+          "label",
+          "third_party_auth_method"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label/title of the identity provider. Used internally to identify the identity provider."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the identity provider. Set a helpful description to communicate the purpose of the identity provider to other system users."
+          },
+          "third_party_auth_method": {
+            "type": "string",
+            "enum": [
+              "oidc",
+              "jwt"
+            ],
+            "description": ""
+          },
+          "jwt_issuer": {
+            "type": "string",
+            "description": "The issuer of the JWT token."
+          },
+          "jwt_audience": {
+            "type": "string",
+            "description": "The audience of the JWT token."
+          },
+          "jwt_signing_alg": {
+            "type": "string",
+            "enum": [
+              "ES256",
+              "ES384",
+              "ES512",
+              "RS256",
+              "RS384",
+              "RS512",
+              "HS256",
+              "HS384",
+              "HS512"
+            ],
+            "description": "The signing algorithm of the JWT token."
+          },
+          "jwt_verification_key": {
+            "type": "string",
+            "description": "The verification key of the JWT token (i.e. public key for asynchronous algorithms or shared secret key for synchronous algorithms)"
+          },
+          "oidc_discovery_url": {
+            "type": "string",
+            "description": "The OpenID Connect discovery document URL. Endpoints (issuer, authorization, token, JWKS, userinfo) are read from this document."
+          },
+          "oidc_client_id": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_client_secret": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_additional_claims": {
+            "type": "string",
+            "description": "Optional. Comma, space, or newline-separated claim names to request from the IdP (OpenID Connect claims request parameter), in addition to the standard claims that match the scopes openid, email and profile. Duplicate names are ignored."
+          }
+        }
+      },
+      "customclaims": {
+        "required": [
+          "id",
+          "provider",
+          "key",
+          "label",
+          "multi_value",
+          "data_type",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "provider": {
+            "type": "integer",
+            "description": "The identity provider to which the custom claim belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom claim, e.g. `Groups` or `Custom Claim 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom claim is a multi-value claim or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom claim."
+          },
+          "lookup_count": {
+            "type": "number",
+            "description": ""
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "customclaimlookupsupsert": {
+        "required": [
+          "claim",
+          "key",
+          "value"
+        ],
+        "properties": {
+          "claim": {
+            "type": "integer",
+            "description": "The custom claim to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim lookup, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom claim lookup, e.g. `admin` or `user`, etc."
+          }
+        }
+      },
+      "customclaimlookupsupsertWithId": {
+        "required": [
+          "id",
+          "claim",
+          "key",
+          "value"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "claim": {
+            "type": "integer",
+            "description": "The custom claim to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim lookup, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom claim lookup, e.g. `admin` or `user`, etc."
+          }
+        }
+      },
+      "customclaimsupsertWithId": {
+        "required": [
+          "id",
+          "provider",
+          "key",
+          "label",
+          "multi_value",
+          "data_type"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "provider": {
+            "type": "integer",
+            "description": "The identity provider to which the custom claim belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom claim, e.g. `Groups` or `Custom Claim 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom claim is a multi-value claim or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom claim."
+          }
+        }
+      },
+      "datasources": {
+        "required": [
+          "id",
+          "label",
+          "description"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label/title of the datasource. Used internally to identify the datasource."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the datasource. Set a helpful description to communicate the purpose of the datasource to other system users."
+          }
+        }
+      },
+      "customfieldlookupsupsert": {
+        "required": [
+          "field",
+          "key",
+          "value"
+        ],
+        "properties": {
+          "field": {
+            "type": "integer",
+            "description": "The custom field to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field lookup, e.g. `admin` or `1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom field lookup, e.g. `Admin` or `ACME solutions`, etc."
+          }
+        }
+      },
+      "customfieldlookupsupsertWithId": {
+        "required": [
+          "id",
+          "field",
+          "key",
+          "value"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "field": {
+            "type": "integer",
+            "description": "The custom field to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field lookup, e.g. `admin` or `1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom field lookup, e.g. `Admin` or `ACME solutions`, etc."
+          }
+        }
+      },
+      "validationMessage": {
+        "required": [
+          "field",
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Detailed error message"
+          },
+          "field": {
+            "type": "string",
+            "description": "Name of the field containing the error"
+          }
+        }
+      },
+      "customclaimlookups": {
+        "required": [
+          "id",
+          "claim",
+          "key",
+          "value",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "claim": {
+            "type": "integer",
+            "description": "The custom claim to which the lookup belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim lookup, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "value": {
+            "type": "string",
+            "description": "The value of the custom claim lookup, e.g. `admin` or `user`, etc."
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "datasourcesupsert": {
+        "required": [
+          "label",
+          "description"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Label/title of the datasource. Used internally to identify the datasource."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the datasource. Set a helpful description to communicate the purpose of the datasource to other system users."
+          }
+        }
+      },
+      "validationFailureMultipledatasources": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/datasourcesupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Datasources**"
+      },
+      "validationFailureMultiplecustomfields": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/customfieldsupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Custom Fields**"
+      },
+      "validationFailureMultiplecustomclaims": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/customclaimsupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Custom Claims**"
+      },
+      "customclaimsupsert": {
+        "required": [
+          "provider",
+          "key",
+          "label",
+          "multi_value",
+          "data_type"
+        ],
+        "properties": {
+          "provider": {
+            "type": "integer",
+            "description": "The identity provider to which the custom claim belongs.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom claim, e.g. `groups` or `x-custom-claim-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom claim, e.g. `Groups` or `Custom Claim 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom claim is a multi-value claim or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom claim."
+          }
+        }
+      },
+      "validationFailureMultipleidproviders": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/idprovidersupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Identity Providers**"
+      },
+      "idproviders": {
+        "required": [
+          "id",
+          "label",
+          "third_party_auth_method",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label/title of the identity provider. Used internally to identify the identity provider."
+          },
+          "description": {
+            "type": "string",
+            "description": "Internal description of the identity provider. Set a helpful description to communicate the purpose of the identity provider to other system users."
+          },
+          "third_party_auth_method": {
+            "type": "string",
+            "enum": [
+              "oidc",
+              "jwt"
+            ],
+            "description": ""
+          },
+          "jwt_issuer": {
+            "type": "string",
+            "description": "The issuer of the JWT token."
+          },
+          "jwt_audience": {
+            "type": "string",
+            "description": "The audience of the JWT token."
+          },
+          "jwt_signing_alg": {
+            "type": "string",
+            "enum": [
+              "ES256",
+              "ES384",
+              "ES512",
+              "RS256",
+              "RS384",
+              "RS512",
+              "HS256",
+              "HS384",
+              "HS512"
+            ],
+            "description": "The signing algorithm of the JWT token."
+          },
+          "jwt_verification_key": {
+            "type": "string",
+            "description": "The verification key of the JWT token (i.e. public key for asynchronous algorithms or shared secret key for synchronous algorithms)"
+          },
+          "oidc_discovery_url": {
+            "type": "string",
+            "description": "The OpenID Connect discovery document URL. Endpoints (issuer, authorization, token, JWKS, userinfo) are read from this document."
+          },
+          "oidc_client_id": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_client_secret": {
+            "type": "string",
+            "description": ""
+          },
+          "oidc_additional_claims": {
+            "type": "string",
+            "description": "Optional. Comma, space, or newline-separated claim names to request from the IdP (OpenID Connect claims request parameter), in addition to the standard claims that match the scopes openid, email and profile. Duplicate names are ignored."
+          },
+          "user_count": {
+            "type": "number",
+            "description": ""
+          },
+          "custom_claim_count": {
+            "type": "number",
+            "description": ""
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "customfields": {
+        "required": [
+          "id",
+          "key",
+          "label",
+          "multi_value",
+          "data_type",
+          "is_system",
+          "apply_to_all_datasources",
+          "allow_inference",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field, e.g. `groups` or `x-custom-field-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom field, e.g. `Groups` or `Custom Field 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom field is a multi-value field or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom field."
+          },
+          "is_system": {
+            "type": "boolean",
+            "description": ""
+          },
+          "related_object": {
+            "type": "string",
+            "description": ""
+          },
+          "applies_to_datasource_classes": {
+            "type": "string",
+            "description": "Comma-separated datasource class ids. Leave empty for all classes. System fields are set automatically from class definitions."
+          },
+          "lookup_count": {
+            "type": "number",
+            "description": ""
+          },
+          "apply_to_all_datasources": {
+            "type": "boolean",
+            "description": "Whether the custom field should be applied to all datasources or not"
+          },
+          "datasources": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array",
+            "description": "The datasources to which the custom field should be applied"
+          },
+          "allow_inference": {
+            "type": "boolean",
+            "description": "Whether the custom field should be inferred from the document content or not"
+          },
+          "existing_value_behaviour": {
+            "type": "string",
+            "enum": [
+              "useexisting",
+              "extendonly",
+              "recalculate"
+            ],
+            "description": ""
+          },
+          "inference_hint": {
+            "type": "string",
+            "description": "A hint to the system for how to infer the custom field from the document content"
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "docs": {
+        "required": [
+          "id",
+          "datasource",
+          "label",
+          "status",
+          "datecreated",
+          "datemodified"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "datasource": {
+            "type": "integer",
+            "description": "ID of the datasource to which the document belongs.",
+            "format": "int64"
+          },
+          "label": {
+            "type": "string",
+            "description": "Label/title of the document. Used internally to identify the document."
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "processing",
+              "indexed",
+              "errored",
+              "deleting"
+            ],
+            "description": "ReadyIntelligence processing status of the document."
+          },
+          "meta": {
+            "type": "string",
+            "description": "JSON string representing arbitrary + system metadata for the document."
+          },
+          "computed_summary": {
+            "type": "string",
+            "description": "Summary of the document as computed by the system."
+          },
+          "computed_language": {
+            "type": "string",
+            "description": "Language of the document as computed by the system."
+          },
+          "parsing_tier": {
+            "type": "string",
+            "enum": [
+              "cost_effective",
+              "agentic",
+              "agentic_plus"
+            ],
+            "description": "The parsing tier for this document. This effects documents such as PDFs and some web pages."
+          },
+          "datecreated": {
+            "type": "string",
+            "description": "Date that the record was created.",
+            "format": "datetime"
+          },
+          "datemodified": {
+            "type": "string",
+            "description": "Date that the record was last modified.",
+            "format": "datetime"
+          }
+        }
+      },
+      "customfieldsupsertWithId": {
+        "required": [
+          "id",
+          "key",
+          "label",
+          "multi_value",
+          "data_type",
+          "apply_to_all_datasources",
+          "allow_inference"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Primary key of the record.",
+            "format": "int64"
+          },
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field, e.g. `groups` or `x-custom-field-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom field, e.g. `Groups` or `Custom Field 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom field is a multi-value field or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom field."
+          },
+          "apply_to_all_datasources": {
+            "type": "boolean",
+            "description": "Whether the custom field should be applied to all datasources or not"
+          },
+          "allow_inference": {
+            "type": "boolean",
+            "description": "Whether the custom field should be inferred from the document content or not"
+          },
+          "existing_value_behaviour": {
+            "type": "string",
+            "enum": [
+              "useexisting",
+              "extendonly",
+              "recalculate"
+            ],
+            "description": ""
+          },
+          "inference_hint": {
+            "type": "string",
+            "description": "A hint to the system for how to infer the custom field from the document content"
+          },
+          "datasources": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "customfieldsupsert": {
+        "required": [
+          "key",
+          "label",
+          "multi_value",
+          "data_type",
+          "apply_to_all_datasources",
+          "allow_inference"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "The key of the custom field, e.g. `groups` or `x-custom-field-1`, etc."
+          },
+          "label": {
+            "type": "string",
+            "description": "The label of the custom field, e.g. `Groups` or `Custom Field 1`, etc."
+          },
+          "multi_value": {
+            "type": "boolean",
+            "description": "Whether the custom field is a multi-value field or not"
+          },
+          "data_type": {
+            "type": "string",
+            "enum": [
+              "plain",
+              "lookup",
+              "boolean",
+              "date",
+              "datetime",
+              "int",
+              "float"
+            ],
+            "description": "The data type of the custom field."
+          },
+          "apply_to_all_datasources": {
+            "type": "boolean",
+            "description": "Whether the custom field should be applied to all datasources or not"
+          },
+          "allow_inference": {
+            "type": "boolean",
+            "description": "Whether the custom field should be inferred from the document content or not"
+          },
+          "existing_value_behaviour": {
+            "type": "string",
+            "enum": [
+              "useexisting",
+              "extendonly",
+              "recalculate"
+            ],
+            "description": ""
+          },
+          "inference_hint": {
+            "type": "string",
+            "description": "A hint to the system for how to infer the custom field from the document content"
+          },
+          "datasources": {
+            "items": {
+              "type": "integer"
+            },
+            "type": "array"
+          }
+        }
+      },
+      "validationFailureMultiplecustomclaimlookups": {
+        "required": [
+          "record",
+          "valid",
+          "errorMessages"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/customclaimlookupsupsert"
+          },
+          "errorMessages": {
+            "items": {
+              "$ref": "#/components/schemas/validationMessage"
+            },
+            "type": "array",
+            "description": "Array of error messages relating to this record."
+          },
+          "valid": {
+            "type": "boolean",
+            "description": "Whether or not this record has passed validation."
+          }
+        },
+        "title": "Multi-record validation errors for **Custom Claim Lookups**"
+      }
+    },
+    "headers": {
+      "XTotalRecords": {
+        "schema": {
+          "type": "integer"
+        },
+        "description": "Total number of records in paginated recordset or queue"
+      },
+      "Link": {
+        "schema": {
+          "type": "string"
+        },
+        "description": "Contains pagination info in the form: '<{nexthref}>; rel=\"next\", <{prevhref}>; rel=\"prev\"'. Either or both prev and next links may be omitted if there are no previous or next records."
+      },
+      "XTotalPages": {
+        "schema": {
+          "type": "integer"
+        },
+        "description": "Total number of pages in the paginated recordset (based on input page size)"
+      }
+    },
+    "securitySchemes": {
+      "Token": {
+        "scheme": "Bearer token",
+        "type": "http",
+        "description": "ReadyIntelligence API users are assigned tokens that can be used to authenticate using Bearer token authentication. For instance, if your token is `ri-xxx123`, then you must authenticate using the header: `Authorization: Bearer ri-xxx123`."
+      }
+    }
+  },
+  "security": [
+    {
+      "Token": []
+    }
+  ],
+  "tags": [
+    {
+      "x-traitTag": true,
+      "name": "Pagination",
+      "description": "List endpoints (`GET /entity/{entity}/`) are paginated. Use the `paginationMode` query parameter to choose a pagination strategy per request; if omitted, the default for the entity or API namespace is used. The available strategies for this API are described below.\n\n**Full (page based, with total count)**\n\nPagination is performed with two query parameters, `page` and `pageSize`. If omitted, these will default to `1` and `100` respectively.\n\nWhen returning a successful response, the API will set three pagination related headers:\n\n1. `X-Total-Records`: The total number of records in the recordset\n2. `X-Total-Pages`: The total number of paginated pages in the recordset (based on the `pageSize`)\n3. `Link`: Links to _next_ and _previous_ URLs to use when fetching the previous or next page of results. In the form: `<{nexthref}>; rel=\"next\", <{prevhref}>; rel=\"prev\"`\n\n**Offset (page based, no total count)**\n\nPagination is performed with the `page` and `pageSize` query parameters (defaulting to `1` and `100`). No total record count is calculated, so the `X-Total-Records` and `X-Total-Pages` headers are _not_ returned. A `Link` header is still provided with _next_ and _previous_ URLs where applicable, in the form: `<{nexthref}>; rel=\"next\", <{prevhref}>; rel=\"prev\"`.\n\n**Cursor (keyset)**\n\nPagination is performed with a `pageSize` query parameter and an opaque `cursor` query parameter. To fetch the first page, omit the `cursor`. Each successful response includes a `Link` header containing the URL for the _next_ page when more records are available, in the form: `<{nexthref}>; rel=\"next\"`. Follow this link to page through the results. Navigation is forward only and no total record count is returned."
+    },
+    {
+      "x-traitTag": true,
+      "name": "Error handling",
+      "description": "When an operation is successful, a `20x` status will be returned. Non `20x` status codes will be returned for controlled errors such as authentication and badly formatted input data. These errors are documented with the expected return bodies in the individual method documentation, below.\n\nAny API call may return a `500` error indicating that something unexpected has happened on the server. The API will supply a json body with at least the following (example):\n\n```json\n{\n  \"title\":\"General error type title\",\n  \"message\":\"General error message\",\n  \"detail\":\"Further detail of the error\",\n  \"errorCode\":500\n}\n```"
+    },
+    {
+      "x-sort-order": "10",
+      "x-category": "knowledge",
+      "name": "Datasources",
+      "description": "Datasources are used to organise your documents into logical groups and configurations."
+    },
+    {
+      "x-sort-order": "20",
+      "x-category": "knowledge",
+      "name": "Documents",
+      "description": ""
+    },
+    {
+      "x-sort-order": "30",
+      "x-category": "knowledge",
+      "name": "Custom Fields",
+      "description": "Custom Fields are used to add custom metadata to your documents."
+    },
+    {
+      "x-sort-order": "30",
+      "x-category": "thirdpartyauth",
+      "name": "Identity Providers",
+      "description": "Identity Providers are used to manage your third party authentication providers used to help users authenticate with your assistants."
+    },
+    {
+      "x-sort-order": "40",
+      "x-category": "thirdpartyauth",
+      "name": "Custom Claims",
+      "description": "Custom Claims are used to define fields and field types that you want to pass through your user JWTs. These can then be used to filter and restrict users access to Assistant tools, etc."
+    },
+    {
+      "x-sort-order": "40",
+      "x-category": "knowledge",
+      "name": "Custom Field Lookups",
+      "description": "Custom Field Lookups are used to define the values of a custom field whose data type is `\"lookup\"`"
+    },
+    {
+      "x-sort-order": "50",
+      "x-category": "thirdpartyauth",
+      "name": "Custom Claim Lookups",
+      "description": "Custom Claim Lookups are used to define the values of a custom claim whose data type is `\"lookup\"`"
+    }
+  ],
+  "paths": {
+    "/entity/customclaimlookups/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, claim, key, value, datecreated, datemodified`]."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.claim",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaimlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Custom Claim Lookup** records"
+          }
+        },
+        "summary": "GET /entity/customclaimlookups/",
+        "description": "Used to fetch **Custom Claim Lookup** records from the system.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customclaimlookupsupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Claim Lookup** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomclaimlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaimlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Custom Claim Lookup** records."
+          }
+        },
+        "summary": "PUT /entity/customclaimlookups/",
+        "description": "Used to batch update **Custom Claim Lookup** records.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customclaimlookupsupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Claim Lookup** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomclaimlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaimlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Custom Claim Lookup** records."
+          }
+        },
+        "summary": "POST /entity/customclaimlookups/",
+        "description": "Used to create **Custom Claim Lookup** records.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      }
+    },
+    "/entity/customclaimlookups/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim Lookup** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customclaimlookups"
+                }
+              }
+            },
+            "description": "**Custom Claim Lookup** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/customclaimlookups/{recordId}/",
+        "description": "Used to fetch a single **Custom Claim Lookup** record by ID.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim Lookup** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customclaimlookupsupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Custom Claim Lookup** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customclaimlookups"
+                }
+              }
+            },
+            "description": "Updated **Custom Claim Lookup** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/customclaimlookups/{recordId}/",
+        "description": "Used to update an individual **Custom Claim Lookup** record by ID.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim Lookup** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/customclaimlookups/{recordId}/",
+        "description": "Used to delete an individual **Custom Claim Lookup** record by ID.",
+        "tags": [
+          "Custom Claim Lookups"
+        ]
+      }
+    },
+    "/entity/customclaims/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, provider, key, label, multi_value, data_type, lookup_count, datecreated, datemodified`]."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.provider",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Custom Claim** records"
+          }
+        },
+        "summary": "GET /entity/customclaims/",
+        "description": "Used to fetch **Custom Claim** records from the system.",
+        "tags": [
+          "Custom Claims"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customclaimsupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Claim** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomclaims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Custom Claim** records."
+          }
+        },
+        "summary": "PUT /entity/customclaims/",
+        "description": "Used to batch update **Custom Claim** records.",
+        "tags": [
+          "Custom Claims"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customclaimsupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Claim** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomclaims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customclaims"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Custom Claim** records."
+          }
+        },
+        "summary": "POST /entity/customclaims/",
+        "description": "Used to create **Custom Claim** records.",
+        "tags": [
+          "Custom Claims"
+        ]
+      }
+    },
+    "/entity/customclaims/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customclaims"
+                }
+              }
+            },
+            "description": "**Custom Claim** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/customclaims/{recordId}/",
+        "description": "Used to fetch a single **Custom Claim** record by ID.",
+        "tags": [
+          "Custom Claims"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customclaimsupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Custom Claim** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customclaims"
+                }
+              }
+            },
+            "description": "Updated **Custom Claim** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/customclaims/{recordId}/",
+        "description": "Used to update an individual **Custom Claim** record by ID.",
+        "tags": [
+          "Custom Claims"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Claim** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/customclaims/{recordId}/",
+        "description": "Used to delete an individual **Custom Claim** record by ID.",
+        "tags": [
+          "Custom Claims"
+        ]
+      }
+    },
+    "/entity/customfieldlookups/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, field, key, value, datecreated, datemodified`]."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.field",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfieldlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Custom Field Lookup** records"
+          }
+        },
+        "summary": "GET /entity/customfieldlookups/",
+        "description": "Used to fetch **Custom Field Lookup** records from the system.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customfieldlookupsupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Field Lookup** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomfieldlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfieldlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Custom Field Lookup** records."
+          }
+        },
+        "summary": "PUT /entity/customfieldlookups/",
+        "description": "Used to batch update **Custom Field Lookup** records.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customfieldlookupsupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Field Lookup** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomfieldlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfieldlookups"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Custom Field Lookup** records."
+          }
+        },
+        "summary": "POST /entity/customfieldlookups/",
+        "description": "Used to create **Custom Field Lookup** records.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      }
+    },
+    "/entity/customfieldlookups/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field Lookup** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customfieldlookups"
+                }
+              }
+            },
+            "description": "**Custom Field Lookup** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/customfieldlookups/{recordId}/",
+        "description": "Used to fetch a single **Custom Field Lookup** record by ID.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field Lookup** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customfieldlookupsupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Custom Field Lookup** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customfieldlookups"
+                }
+              }
+            },
+            "description": "Updated **Custom Field Lookup** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/customfieldlookups/{recordId}/",
+        "description": "Used to update an individual **Custom Field Lookup** record by ID.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field Lookup** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/customfieldlookups/{recordId}/",
+        "description": "Used to delete an individual **Custom Field Lookup** record by ID.",
+        "tags": [
+          "Custom Field Lookups"
+        ]
+      }
+    },
+    "/entity/customfields/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, key, label, multi_value, data_type, is_system, related_object, applies_to_datasource_classes, lookup_count, apply_to_all_datasources, datasources, allow_inference, existing_value_behaviour, inference_hint, datecreated, datemodified`]."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.multi_value",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.data_type",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "plain",
+                "lookup",
+                "boolean",
+                "date",
+                "datetime",
+                "int",
+                "float"
+              ]
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.is_system",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.apply_to_all_datasources",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": "If enabled, this field will be applied to all datasources. If disabled, you can select the datasources that this field will be applied to."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.allow_inference",
+            "schema": {
+              "type": "boolean"
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.existing_value_behaviour",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "useexisting",
+                "extendonly",
+                "recalculate"
+              ]
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Date that the record was created."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated.min",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Minimum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated.max",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Maximum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Date that the record was last modified."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified.min",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Minimum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified.max",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Maximum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfields"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Custom Field** records"
+          }
+        },
+        "summary": "GET /entity/customfields/",
+        "description": "Used to fetch **Custom Field** records from the system.",
+        "tags": [
+          "Custom Fields"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customfieldsupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Field** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomfields"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfields"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Custom Field** records."
+          }
+        },
+        "summary": "PUT /entity/customfields/",
+        "description": "Used to batch update **Custom Field** records.",
+        "tags": [
+          "Custom Fields"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/customfieldsupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Custom Field** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultiplecustomfields"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/customfields"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Custom Field** records."
+          }
+        },
+        "summary": "POST /entity/customfields/",
+        "description": "Used to create **Custom Field** records.",
+        "tags": [
+          "Custom Fields"
+        ]
+      }
+    },
+    "/entity/customfields/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customfields"
+                }
+              }
+            },
+            "description": "**Custom Field** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/customfields/{recordId}/",
+        "description": "Used to fetch a single **Custom Field** record by ID.",
+        "tags": [
+          "Custom Fields"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/customfieldsupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Custom Field** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/customfields"
+                }
+              }
+            },
+            "description": "Updated **Custom Field** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/customfields/{recordId}/",
+        "description": "Used to update an individual **Custom Field** record by ID.",
+        "tags": [
+          "Custom Fields"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Custom Field** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/customfields/{recordId}/",
+        "description": "Used to delete an individual **Custom Field** record by ID.",
+        "tags": [
+          "Custom Fields"
+        ]
+      }
+    },
+    "/entity/datasources/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, label, description`]."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/datasources"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Datasource** records"
+          }
+        },
+        "summary": "GET /entity/datasources/",
+        "description": "Used to fetch **Datasource** records from the system.",
+        "tags": [
+          "Datasources"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/datasourcesupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Datasource** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultipledatasources"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/datasources"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Datasource** records."
+          }
+        },
+        "summary": "PUT /entity/datasources/",
+        "description": "Used to batch update **Datasource** records.",
+        "tags": [
+          "Datasources"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/datasourcesupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Datasource** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultipledatasources"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/datasources"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Datasource** records."
+          }
+        },
+        "summary": "POST /entity/datasources/",
+        "description": "Used to create **Datasource** records.",
+        "tags": [
+          "Datasources"
+        ]
+      }
+    },
+    "/entity/datasources/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Datasource** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/datasources"
+                }
+              }
+            },
+            "description": "**Datasource** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/datasources/{recordId}/",
+        "description": "Used to fetch a single **Datasource** record by ID.",
+        "tags": [
+          "Datasources"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Datasource** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/datasourcesupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Datasource** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/datasources"
+                }
+              }
+            },
+            "description": "Updated **Datasource** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/datasources/{recordId}/",
+        "description": "Used to update an individual **Datasource** record by ID.",
+        "tags": [
+          "Datasources"
+        ]
+      }
+    },
+    "/entity/docs/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, datasource, label, status, meta, computed_summary, computed_language, parsing_tier, datecreated, datemodified`]."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datasource",
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.status",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "queued",
+                "processing",
+                "indexed",
+                "errored",
+                "deleting"
+              ]
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.parsing_tier",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "cost_effective",
+                "agentic",
+                "agentic_plus"
+              ]
+            },
+            "description": ""
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Date that the record was created."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated.min",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Minimum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datecreated.max",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Maximum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Date that the record was last modified."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified.min",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Minimum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "filter.datemodified.max",
+            "schema": {
+              "type": "string",
+              "format": "datetime"
+            },
+            "description": "Maximum value (inclusive) for this date field. Accepts an absolute date/datetime or a relative expression such as now, now-7d or now/d."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/docs"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Document** records"
+          }
+        },
+        "summary": "GET /entity/docs/",
+        "description": "Used to fetch **Document** records from the system.",
+        "tags": [
+          "Documents"
+        ]
+      },
+      "post": {
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "label",
+                  "datasource"
+                ],
+                "properties": {
+                  "content": {
+                    "type": "string",
+                    "description": "Raw text content of the document. Required if fileUrl and fileUpload are not provided."
+                  },
+                  "meta": {
+                    "type": "string",
+                    "description": "Optional JSON string containing additional metadata for the document."
+                  },
+                  "fileUrl": {
+                    "type": "string",
+                    "description": "URL to fetch the document from. Required if content and fileUpload are not provided.",
+                    "format": "uri"
+                  },
+                  "parsing_tier": {
+                    "type": "string",
+                    "enum": [
+                      "fast",
+                      "cost_effective",
+                      "agentic",
+                      "agentic_plus"
+                    ],
+                    "description": "The parsing tier to use for the document. Set `null` or **omit** to use the default parsing tier for the datasource."
+                  },
+                  "fileUpload": {
+                    "type": "string",
+                    "description": "File to upload. Required if fileUrl and content are not provided.",
+                    "format": "binary"
+                  },
+                  "label": {
+                    "type": "string",
+                    "description": "Label/title of the document. Used internally to identify the document."
+                  },
+                  "datasource": {
+                    "type": "integer",
+                    "description": "ID of the datasource to which the document belongs."
+                  }
+                },
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "errorMessages"
+                  ],
+                  "properties": {
+                    "errorMessages": {
+                      "items": {
+                        "$ref": "#/components/schemas/validationMessage"
+                      },
+                      "type": "array",
+                      "description": "Array of error messages relating to this record."
+                    }
+                  },
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Unprocessable entity. See errorMessages for details."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/docs"
+                }
+              }
+            },
+            "description": "Document uploaded successfully."
+          }
+        },
+        "operationId": "uploadDatasourceDoc",
+        "summary": "POST /entity/docs/",
+        "description": "Upload a document to a datasource. You must provide either a `fileUrl`, `content`, or `fileUpload`. **NOTE**: this is a `multipart/form-data` request, not a JSON body. Use a binary file upload for the `fileUpload` field to upload a file.",
+        "tags": [
+          "Documents"
+        ]
+      }
+    },
+    "/entity/docs/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Document** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/docs"
+                }
+              }
+            },
+            "description": "**Document** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/docs/{recordId}/",
+        "description": "Used to fetch a single **Document** record by ID.",
+        "tags": [
+          "Documents"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Document** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/docs/{recordId}/",
+        "description": "Used to delete an individual **Document** record by ID.",
+        "tags": [
+          "Documents"
+        ]
+      }
+    },
+    "/entity/idproviders/": {
+      "get": {
+        "parameters": [
+          {
+            "required": false,
+            "in": "query",
+            "name": "paginationMode",
+            "schema": {
+              "default": "full",
+              "type": "string",
+              "enum": [
+                "full",
+                "offset",
+                "cursor"
+              ]
+            },
+            "description": "Pagination strategy to use for this request. One of `full, offset, cursor`. Default is `full` when omitted."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For page based pagination (`full` and `offset` modes); the page number to fetch. Default is 1. Ignored when `paginationMode` is `cursor`."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "type": "integer"
+            },
+            "description": "For pagination; the number of records per page. Default is 100."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "cursor",
+            "schema": {
+              "type": "string"
+            },
+            "description": "For cursor (keyset) pagination; the opaque cursor returned in the `Link` header of the previous response. Omit to fetch the first page."
+          },
+          {
+            "required": false,
+            "in": "query",
+            "name": "fields",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, label, description, third_party_auth_method, jwt_issuer, jwt_audience, jwt_signing_alg, jwt_verification_key, oidc_discovery_url, oidc_client_id, oidc_client_secret, oidc_additional_claims, user_count, custom_claim_count, datecreated, datemodified`]."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/idproviders"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "headers": {
+              "X-Total-Records": {
+                "$ref": "#/components/headers/XTotalRecords"
+              },
+              "X-Total-Pages": {
+                "$ref": "#/components/headers/XTotalPages"
+              },
+              "Link": {
+                "$ref": "#/components/headers/Link"
+              }
+            },
+            "description": "Array of **Identity Provider** records"
+          }
+        },
+        "summary": "GET /entity/idproviders/",
+        "description": "Used to fetch **Identity Provider** records from the system.",
+        "tags": [
+          "Identity Providers"
+        ]
+      },
+      "put": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/idprovidersupsertWithId"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Identity Provider** objects to update. Missing fields per item will be ignored and only fields given will be updated."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultipleidproviders"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been updated."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/idproviders"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of updated **Identity Provider** records."
+          }
+        },
+        "summary": "PUT /entity/idproviders/",
+        "description": "Used to batch update **Identity Provider** records.",
+        "tags": [
+          "Identity Providers"
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "items": {
+                  "$ref": "#/components/schemas/idprovidersupsert"
+                },
+                "type": "array"
+              }
+            }
+          },
+          "required": true,
+          "description": "Array of **Identity Provider** objects to create."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationFailureMultipleidproviders"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more entities failed validation. No records will have been created."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/idproviders"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Array of created **Identity Provider** records."
+          }
+        },
+        "summary": "POST /entity/idproviders/",
+        "description": "Used to create **Identity Provider** records.",
+        "tags": [
+          "Identity Providers"
+        ]
+      }
+    },
+    "/entity/idproviders/{recordId}/": {
+      "get": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Identity Provider** record that you wish to fetch."
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/idproviders"
+                }
+              }
+            },
+            "description": "**Identity Provider** record object"
+          },
+          "404": {
+            "description": "No record found for the given recordId"
+          }
+        },
+        "summary": "GET /entity/idproviders/{recordId}/",
+        "description": "Used to fetch a single **Identity Provider** record by ID.",
+        "tags": [
+          "Identity Providers"
+        ]
+      },
+      "put": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Identity Provider** record that you wish to update."
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/idprovidersupsert"
+              }
+            }
+          },
+          "required": true,
+          "description": "**Identity Provider** object with fields to update. Missing fields will be ignored."
+        },
+        "responses": {
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/validationMessage"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Data validation failure. Returned when one or more fields have failed validation."
+          },
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/idproviders"
+                }
+              }
+            },
+            "description": "Updated **Identity Provider** record object"
+          },
+          "404": {
+            "description": "No record found for the given ID"
+          }
+        },
+        "summary": "PUT /entity/idproviders/{recordId}/",
+        "description": "Used to update an individual **Identity Provider** record by ID.",
+        "tags": [
+          "Identity Providers"
+        ]
+      },
+      "delete": {
+        "parameters": [
+          {
+            "required": true,
+            "in": "path",
+            "name": "recordId",
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the **Identity Provider** record you wish to delete"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "required": [
+                    "deleted"
+                  ],
+                  "properties": {
+                    "deleted": {
+                      "type": "integer",
+                      "description": "Number of items actually deleted by the operation, i.e. 1 or 0. If 0, assume that the item did not exist."
+                    }
+                  }
+                }
+              }
+            },
+            "description": "Response to valid request to delete records"
+          }
+        },
+        "summary": "DELETE /entity/idproviders/{recordId}/",
+        "description": "Used to delete an individual **Identity Provider** record by ID.",
+        "tags": [
+          "Identity Providers"
+        ]
+      }
+    }
+  },
+  "x-categories": [
+    {
+      "id": "knowledge",
+      "name": "Knowledge",
+      "description": "The Knowledge API allows you to index and manage your external documents. Organise your documents using datasources.",
+      "sortOrder": "10",
+      "tags": [
+        {
+          "x-sort-order": "10",
+          "x-category": "knowledge",
+          "name": "Datasources",
+          "description": "Datasources are used to organise your documents into logical groups and configurations."
+        },
+        {
+          "x-sort-order": "20",
+          "x-category": "knowledge",
+          "name": "Documents",
+          "description": ""
+        },
+        {
+          "x-sort-order": "30",
+          "x-category": "knowledge",
+          "name": "Custom Fields",
+          "description": "Custom Fields are used to add custom metadata to your documents."
+        },
+        {
+          "x-sort-order": "40",
+          "x-category": "knowledge",
+          "name": "Custom Field Lookups",
+          "description": "Custom Field Lookups are used to define the values of a custom field whose data type is `\"lookup\"`"
+        }
+      ]
+    },
+    {
+      "id": "thirdpartyauth",
+      "name": "Third Party Auth",
+      "description": "The Third Party Auth API allows you to manage your third party authentication providers used to help users authenticate with your assistants.",
+      "sortOrder": "20",
+      "tags": [
+        {
+          "x-sort-order": "30",
+          "x-category": "thirdpartyauth",
+          "name": "Identity Providers",
+          "description": "Identity Providers are used to manage your third party authentication providers used to help users authenticate with your assistants."
+        },
+        {
+          "x-sort-order": "40",
+          "x-category": "thirdpartyauth",
+          "name": "Custom Claims",
+          "description": "Custom Claims are used to define fields and field types that you want to pass through your user JWTs. These can then be used to filter and restrict users access to Assistant tools, etc."
+        },
+        {
+          "x-sort-order": "50",
+          "x-category": "thirdpartyauth",
+          "name": "Custom Claim Lookups",
+          "description": "Custom Claim Lookups are used to define the values of a custom claim whose data type is `\"lookup\"`"
+        }
+      ]
+    }
+  ]
+}

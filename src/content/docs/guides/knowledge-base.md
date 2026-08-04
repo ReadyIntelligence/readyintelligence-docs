@@ -7,22 +7,22 @@ sidebar:
 
 ## Introduction
 
-The **knowledge base** is the searchable store of your organisation's content that AI uses to
-answer questions accurately. Rather than relying only on what a language model already knows,
-an agent can search the knowledge base and ground its answers in *your* documents — returning
-sources alongside the answer.
+The **knowledge base** is the searchable vector store of your organisation's content that AI
+uses to answer questions accurately. Rather than relying only on what a language model already
+knows, an agent can search the knowledge base and ground its answers in *your* documents —
+returning sources alongside the answer.
 
 Content gets into the knowledge base through **knowledge sources**. A knowledge source is a
 connection to somewhere your content already lives. ReadyIntelligence reads from that source,
-turns each item into a **document**, and indexes the document's text so it can be searched by
-meaning, not just keywords.
+turns each item into a **document**, and indexes the document's text for **semantic (vector)
+search** — by meaning, not just keywords.
 
 The typical lifecycle of a knowledge source is:
 
 1. **Discover** — ReadyIntelligence works out which documents exist in the source.
 2. **Index** — it reads each document's content (text, a file, or a web page) and adds it to the knowledge base.
 3. **Enrich** — optional [metadata](#document-metadata) is attached to each document, some of it filled in automatically by AI.
-4. **Search** — agents query the knowledge base through the knowledge base search [tool](./tools.md).
+4. **Search** — agents query the knowledge base through the knowledge base search [tool](./tools.md). Indexed documents can also be attached as resources on a [skill](./skills.md).
 5. **Refresh** — sources can be re-indexed on demand or on a schedule to pick up changes.
 
 ## Source types
@@ -63,9 +63,13 @@ account, or starting URL to read from.
 ## Searching the knowledge base
 
 Agents don't query the knowledge base directly; they use the **knowledge base search tool**.
-When you attach this tool to an agent you can scope it to particular sources and add editorial
-guidance describing what's in them, which helps the model decide when to search and how to
-phrase its query. See [Tools](./tools.md) for how that tool is configured.
+When you attach this tool to an agent (or to a [skill](./skills.md)) you can scope it to
+particular sources and add editorial guidance describing what's in them, which helps the model
+decide when to search and how to phrase its query. See [Tools](./tools.md) for how that tool is
+configured.
+
+You can also point a skill at a specific indexed document as a **knowledge base document**
+resource, so the model can load that document on demand without a full search.
 
 ## Document metadata
 
@@ -110,4 +114,6 @@ the knowledge base aligned.
 ## Related reading
 
 - [Tools](./tools.md) — how agents search the knowledge base.
+- [Skills](./skills.md) — attaching knowledge base documents as skill resources.
 - [Agents](./agents.md) — agents are what use the knowledge base during a conversation.
+- [MCP](./mcp.md) — exposing knowledge search tools through MCP endpoints.

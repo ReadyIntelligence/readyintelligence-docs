@@ -1,10 +1,10 @@
 ---
 title: ReadyIntelligence
-description: Documentation for ReadyIntelligence — the AI assistants, knowledge base, agents, tools, and MCP in your membership and content platform.
+description: Documentation for ReadyIntelligence — embed AI assistants, build agents and skills, index knowledge, automate workflows, and connect through MCP.
 template: splash
 hero:
   title: ReadyIntelligence Documentation
-  tagline: Your guide to setting up, configuring, and extending the AI layer of your platform — from your first login to advanced customisation.
+  tagline: Your guide to the ReadyIntelligence platform — from embedding an assistant on your website to automating backoffice workflows with agents, skills, knowledge, and MCP.
   image:
     light: ../../assets/hero.svg
     dark: ../../assets/hero.svg
@@ -30,33 +30,47 @@ import {
   <LinkCard
     title="Knowledge Sources"
     href={`${import.meta.env.BASE_URL}/guides/knowledge-base/`}
-    description="Ground AI answers in your own content."
+    description="Index your content for semantic search."
   />
   <LinkCard
     title="Agents"
     href={`${import.meta.env.BASE_URL}/guides/agents/`}
-    description="The configurable AI brain behind every chat."
+    description="The configurable AI brain behind every chat and automation."
+  />
+  <LinkCard
+    title="Skills"
+    href={`${import.meta.env.BASE_URL}/guides/skills/`}
+    description="Reusable instruction packs that agents load on demand."
   />
   <LinkCard
     title="Assistants"
     href={`${import.meta.env.BASE_URL}/guides/assistants/`}
-    description="The chat experiences your users talk to."
+    description="Embed chat experiences on your website."
   />
   <LinkCard
     title="MCP"
     href={`${import.meta.env.BASE_URL}/guides/mcp/`}
-    description="Connect external AI apps to your tools."
+    description="Expose tools to external AI apps, or consume external tools."
+  />
+  <LinkCard
+    title="Automation"
+    href={`${import.meta.env.BASE_URL}/guides/automation/`}
+    description="Scheduled agent calls and webhook triggers."
+  />
+  <LinkCard
+    title="API"
+    href={`${import.meta.env.BASE_URL}/guides/api-users/`}
+    description="API users, bearer tokens, and the REST API reference."
   />
 </CardGrid>
 
 <article class="ri-about sl-flex">
   <p class="ri-about-title">New to ReadyIntelligence?</p>
   <p class="ri-about-text">
-    These docs are for teams already using ReadyIntelligence — the
-    next-generation AI platform that connects everything your organisation knows
-    and makes it instantly accessible through an intelligent assistant you can
-    deploy anywhere. If you're not using it yet, book a demo and we'll walk you
-    through it.
+    These docs are for teams already using ReadyIntelligence — the AI platform
+    that connects what your organisation knows and makes it available through
+    assistants you embed anywhere, and agents you run in workflows. If you're
+    not using it yet, book a demo and we'll walk you through it.
   </p>
   <LinkButton
     href="https://readyintelligence.com/contact.html"
