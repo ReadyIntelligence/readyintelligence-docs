@@ -1,8 +1,8 @@
 # ReadyIntelligence Documentation
 
-The documentation site for **ReadyIntelligence** — the AI assistants, knowledge base, agents,
-tools, and MCP capabilities of the platform. Built with [Astro](https://astro.build) and
-[Starlight](https://starlight.astro.build) using the
+The documentation site for **ReadyIntelligence** — embed assistants, build agents and skills,
+index knowledge, automate workflows, and connect through MCP. Built with
+[Astro](https://astro.build) and [Starlight](https://starlight.astro.build) using the
 [Rapide](https://github.com/HiDeoo/starlight-theme-rapide) theme.
 
 ## Requirements
@@ -24,8 +24,8 @@ npm run preview  # preview the built site locally
 src/
   content/docs/
     index.mdx                  # landing page (splash)
-    start-here/                # What is ReadyIntelligence? + Getting started
-    guides/                    # Knowledge Sources, Agents (+ Tools, Automation), Assistants, MCP
+    start-here/                # What is RI? + embed / automate getting-started journeys
+    guides/                    # Knowledge, Agents (+ Tools, Skills, Automation), Assistants (+ auth), MCP
     reference/web-components/   # Web component reference (overview + one page per component)
   components/                  # Starlight component overrides (e.g. dark-by-default ThemeProvider)
   styles/custom.css            # brand theming (fonts, accent colour, greys, buttons)
