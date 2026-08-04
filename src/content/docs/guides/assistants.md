@@ -58,6 +58,19 @@ own system are recognised. See [Third-party authentication](./third-party-auth.m
 | **Authentication mode** | Who can access the assistant — see [above](#who-can-use-it). |
 | **Identity provider** | Optional. The [third-party identity provider](./third-party-auth.md) used when the assistant authenticates external users. |
 
+### Display style
+
+**Display style** controls how the assistant appears on the page:
+
+| Style | Behaviour |
+|-------|-----------|
+| **Floating** *(default)* | Floating trigger button and overlay chat window — flexible on any website with little host CSS. |
+| **Inline** | Assistant fills a container in your layout (for example a sidebar). You own sizing, collapse behaviour, and surrounding CSS. |
+| **Fullscreen** | Assistant fills the viewport — suited to a dedicated page or route. |
+
+See [Embedding the assistant](./embedding.md) for when to use each style and what advanced
+(inline / fullscreen) embeds require from the host site.
+
 ### Appearance
 
 Assistants can either inherit your **site's theme** or use their own values. When themed
@@ -74,8 +87,9 @@ explicitly, the available settings include:
 | **Secondary colour** | Supporting colour for subtle highlights and hover states. |
 | **Links** | Colour for links inside the assistant. |
 
-A floating trigger button (its shape, icon, size, position, and tooltip) can also be configured
-for assistants that pop up over a website.
+For **floating** assistants, a trigger button (shape, icon, colours, position, tooltip, and
+related layout options) can also be configured. Those floating-only controls do not apply to
+inline or fullscreen display styles.
 
 ### Saved prompts
 
@@ -99,6 +113,7 @@ drop the elements straight into your markup. See [Web Components](../reference/w
 - [Agents](./agents.md) — the brain behind every assistant.
 - [Skills](./skills.md) — specialised instruction packs on the default agent.
 - [Tools](./tools.md) — what the backing agent can do during a conversation.
+- [Embedding the assistant](./embedding.md) — floating, inline, and fullscreen display styles.
 - [Third-party authentication](./third-party-auth.md) — identity providers for external embeds.
 - [Web Components](../reference/web-components/overview.mdx) — embed buttons, inputs, and prompt lists that launch the assistant.
 - [MCP](./mcp.md) — exposing agents to external AI apps instead of (or as well as) an assistant UI.
