@@ -7,14 +7,35 @@ import rehypeRelativeMarkdownLinks from 'astro-rehype-relative-markdown-links';
 
 const riApiSidebarGroup = createOpenAPISidebarGroup()
 
+/**
+ * Production default: https://docs.readyintelligence.com (site root).
+ * Override at build time for other hosts, e.g. GitHub Pages:
+ *   DOCS_SITE=https://readyintelligence.github.io DOCS_BASE=/readyintelligence-docs npm run build
+ */
+const docsSite = process.env.DOCS_SITE ?? 'https://docs.readyintelligence.com';
+const docsBase = normalizeBase(process.env.DOCS_BASE ?? '/');
+
+/**
+ * @param {string} value
+ * @returns {string}
+ */
+function normalizeBase(value) {
+	const trimmed = value.trim();
+	if (!trimmed || trimmed === '/') {
+		return '/';
+	}
+	const withLeading = trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+	return withLeading.endsWith('/') ? withLeading.slice(0, -1) : withLeading;
+}
+
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://readyintelligence.github.io',
-	base: '/readyintelligence-docs',
+	site: docsSite,
+	base: docsBase,
 	markdown: {
 		rehypePlugins: [
 			[rehypeRelativeMarkdownLinks, {
-				base: '/readyintelligence-docs',
+				base: docsBase === '/' ? '' : docsBase,
 				collections: { docs: { base: false } },
 				trailingSlash: 'always',
 			}],

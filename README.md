@@ -19,6 +19,23 @@ npm run build    # build the production site to ./dist
 npm run preview  # preview the built site locally
 ```
 
+Defaults target production at **https://docs.readyintelligence.com** (`site` + `base: /`).
+Override at build time when needed:
+
+```sh
+# GitHub Pages (project site)
+DOCS_SITE=https://readyintelligence.github.io DOCS_BASE=/readyintelligence-docs npm run build
+```
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `DOCS_SITE` | `https://docs.readyintelligence.com` | Canonical site URL (sitemap, OG URLs) |
+| `DOCS_BASE` | `/` | Path prefix for assets and routes |
+
+`import.meta.env.BASE_URL` in MDX follows `DOCS_BASE`, so LinkCards stay correct across environments.
+Hero links on the landing page use paths without a hardcoded `/readyintelligence-docs` prefix so they
+resolve under whatever base you build with.
+
 ## Project structure
 
 ```

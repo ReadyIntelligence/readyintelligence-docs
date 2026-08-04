@@ -25,6 +25,9 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          DOCS_SITE: https://docs.readyintelligence.com
+          DOCS_BASE: /
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
