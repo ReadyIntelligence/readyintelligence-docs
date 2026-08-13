@@ -877,6 +877,7 @@
 				"required": [
 					"id",
 					"datasource",
+					"reference",
 					"label",
 					"status",
 					"datecreated",
@@ -893,9 +894,13 @@
 						"description": "ID of the datasource to which the document belongs.",
 						"format": "int64"
 					},
+					"reference": {
+						"type": "string",
+						"description": "Unique reference of the document. Used internally to identify the document. This could be your own external primary key, for example."
+					},
 					"label": {
 						"type": "string",
-						"description": "Label/title of the document. Used internally to identify the document."
+						"description": "Label/title of the document."
 					},
 					"status": {
 						"type": "string",
@@ -2766,7 +2771,7 @@
 						"schema": {
 							"type": "string"
 						},
-						"description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, datasource, label, status, meta, computed_summary, computed_language, parsing_tier, datecreated, datemodified`]."
+						"description": "Comma separated list of fields to fetch per record. Default is all fields. Possible values: [`id, datasource, reference, label, status, meta, computed_summary, computed_language, parsing_tier, datecreated, datemodified`]."
 					},
 					{
 						"required": false,
@@ -2903,7 +2908,8 @@
 							"schema": {
 								"required": [
 									"label",
-									"datasource"
+									"datasource",
+									"reference"
 								],
 								"properties": {
 									"content": {
@@ -2929,6 +2935,10 @@
 										],
 										"description": "The parsing tier to use for the document. Set `null` or **omit** to use the default parsing tier for the datasource."
 									},
+									"reference": {
+										"type": "string",
+										"description": "Unique reference of the document. Used internally to identify the document. This could be your own external primary key, for example."
+									},
 									"fileUpload": {
 										"type": "string",
 										"description": "File to upload. Required if fileUrl and content are not provided.",
@@ -2936,7 +2946,7 @@
 									},
 									"label": {
 										"type": "string",
-										"description": "Label/title of the document. Used internally to identify the document."
+										"description": "Label/title of the document."
 									},
 									"datasource": {
 										"type": "integer",
