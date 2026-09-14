@@ -17,6 +17,9 @@ connection to somewhere your content already lives. ReadyIntelligence reads from
 turns each item into a **document**, and indexes the document's text for **semantic (vector)
 search** — by meaning, not just keywords.
 
+Indexing uses [credits](./credits.md). A large crawl or many file uploads will show up on the
+credit usage screen as document indexing.
+
 The typical lifecycle of a knowledge source is:
 
 1. **Discover** — ReadyIntelligence works out which documents exist in the source.
@@ -33,14 +36,13 @@ comes from. Each type behaves a little differently:
 | Type | What it indexes |
 |------|-----------------|
 | **Manual documents** | Documents you add and manage by hand, for content that isn't held anywhere else. |
-| **Assets** | Document and video assets from the asset manager (PDFs, Word documents, and video). |
-| **Site pages** | Page content from websites hosted on the platform. |
-| **Resource library** | Documents held in the resource library. |
 | **Web crawler** | Content discovered by crawling an external website. |
 | **Google Drive** | Documents and files from a connected Google Drive. |
 | **Dropbox** | Documents and files from a connected Dropbox. |
 | **SharePoint** | Documents from SharePoint document libraries (Microsoft 365). |
 | **Vimeo** | Videos from a connected Vimeo account. |
+
+Cloud storage and Vimeo sources appear when those connections are set up for your account.
 
 Each indexed document is classified by **type** — *article*, *document*, *video*, or *audio* —
 which influences how its content is read and presented.
@@ -51,6 +53,7 @@ When you create a knowledge source, the settings available depend on its type, b
 support some combination of:
 
 - **Indexing** — whether the source's documents are added to the knowledge base.
+- **Processing quality** — how thoroughly each document is read (see [below](#processing-quality)).
 - **Manual upload** — whether documents can be added to the source by hand.
 - **Editing** — whether indexed documents can be edited in place.
 - **Scheduling** — whether the source re-indexes automatically on a schedule, so changes in the underlying system are picked up without manual re-runs.
@@ -60,13 +63,61 @@ Source types that connect to external systems (Google Drive, Dropbox, SharePoint
 web crawler) add their own connection and scoping settings — for example which folder, library,
 account, or starting URL to read from.
 
+### Processing quality
+
+Every source has a **processing quality** setting that controls how documents are read when
+they are indexed:
+
+| Quality | Best for |
+|---------|----------|
+| **Standard** | Everyday documents that are primarily text. |
+| **Advanced** | Documents that contain images and diagrams. Highly complex layouts may still vary. |
+| **Ultimate** | Maximum accuracy for complex layouts, multi-page tables, images, and diagrams. |
+
+Higher quality uses more [credits](./credits.md) per document. Stick with Standard unless a
+source routinely includes scans, figures, or difficult tables.
+
+You can also choose a quality when uploading an individual document, or keep the source default.
+
+## Manual documents
+
+For a **manual documents** source you add content yourself:
+
+- **Upload files** — drop several files at once. Each file becomes its own document. A file
+  that is already in the source is skipped as a duplicate.
+- **From a URL** — ReadyIntelligence downloads the file at that address.
+- **Pasted text** — paste HTML, Markdown, or other text when you do not have a file.
+
+Once uploaded, documents are queued for processing. You can upload more at any time.
+
+## Web crawler
+
+A **web crawler** source indexes pages from a website you do not host in ReadyIntelligence.
+You choose where the crawl starts and how far it is allowed to go:
+
+| Setting | Purpose |
+|---------|---------|
+| **Root URL** | The page the crawl starts from, e.g. `https://www.example.com`. |
+| **Max depth** | How many link-hops from the root the crawl may follow. |
+| **Custom sitemap URL** | Optional. Use this when the site's sitemap is not at the default `/sitemap.xml`. |
+| **Additional allowed domains** | Optional extra hosts the crawl may follow (for example a docs or static-file domain). One host per line. |
+| **Include patterns** | Optional path rules: only index URLs that match. One rule per line. |
+| **Exclude patterns** | Optional path rules: skip URLs that match. One rule per line. |
+
+After you save the source, use **Crawl site** to start. The crawl status tab shows progress
+(pages completed vs total), and you can **stop** a running crawl or **trigger a re-crawl**
+later. Schedule the source if the site should be refreshed automatically.
+
 ## Searching the knowledge base
 
 Agents don't query the knowledge base directly; they use the **knowledge base search tool**.
 When you attach this tool to an agent (or to a [skill](./skills.md)) you can scope it to
 particular sources and add editorial guidance describing what's in them, which helps the model
-decide when to search and how to phrase its query. See [Tools](./tools.md) for how that tool is
-configured.
+decide when to search and how to phrase its query.
+
+You can also turn on **Metadata only** so a public assistant receives titles, summaries, and
+URLs from those sources without the document body — useful when the assistant should know
+private content exists and can signpost access. See [Tools](./tools.md#knowledge-base-search-metadata-only).
 
 You can also point a skill at a specific indexed document as a **knowledge base document**
 resource, so the model can load that document on demand without a full search.
@@ -108,12 +159,14 @@ in by hand.
 
 For sources that support it, you can also turn on **write-back** for a field, so the inferred
 value is pushed back to the original record after indexing. For example, topics inferred from a
-resource-library document can be written back onto that resource, keeping the source system and
-the knowledge base aligned.
+SharePoint or Google Drive document can be written back onto that file, keeping the source
+system and the knowledge base aligned.
 
 ## Related reading
 
-- [Tools](./tools.md) — how agents search the knowledge base.
+- [Tools](./tools.md) — how agents search the knowledge base, including metadata-only search.
 - [Skills](./skills.md) — attaching knowledge base documents as skill resources.
 - [Agents](./agents.md) — agents are what use the knowledge base during a conversation.
+- [Credit usage](./credits.md) — indexing consumes credits against your period allowance.
+- [Admin assistant](./admin-assistant.md) — ask staff chat to help add or inspect sources.
 - [MCP](./mcp.md) — exposing knowledge search tools through MCP endpoints.

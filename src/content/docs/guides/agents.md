@@ -73,6 +73,7 @@ own LLM credentials have been enabled for your account and you want to override 
 | **Instruction** | The core instructions guiding how the model responds. The default tells the agent to answer using its tools and to say so when it doesn't have enough information rather than making something up. |
 | **Personality** | Optional guidance on tone of voice and persona, e.g. "You are a helpful assistant named Aika". |
 | **Use memory** | Whether the agent stores and reuses learnings from previous conversations. |
+| **Max tool call loops** | How many times the agent can call tools, receive results, and call tools again in a single response. This prevents runaway tool use and unexpected cost. The default of `20` is suitable for most agents; increase it only when an agent needs many sequential tool steps. |
 | **Store large tool results** | When on, very large tool outputs are stored on the thread and exposed to the model as a compact reference it can read on demand, instead of being sent inline. This saves context space (experimental). |
 
 ### Tools
@@ -97,6 +98,7 @@ own LLM credentials have been enabled for your account and you want to override 
 ## Related reading
 
 - [Assistants](./assistants.md) — how an agent is surfaced to users.
+- [Admin assistant](./admin-assistant.md) — the staff chat powered by an admin / automation agent.
 - [Tools](./tools.md) — the capabilities you attach to an agent.
 - [Skills](./skills.md) — reusable instruction packs loaded on demand.
 - [Automation & scheduling](./automation.md) — running agents on a schedule or via webhooks.

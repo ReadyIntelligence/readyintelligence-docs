@@ -125,6 +125,7 @@ conversation thread.
 ## Related reading
 
 - [Agents](./agents.md) — where global skills are assigned for chat and automation.
+- [Admin assistant](./admin-assistant.md) — where personal skills are available to their owner.
 - [Tools](./tools.md) — always-on agent tools vs tools unlocked by a skill.
 - [MCP](./mcp.md) — assigning skills to endpoints and the MCP skills tool.
 - [Knowledge sources](./knowledge-base.md) — attaching knowledge base documents as skill resources.
