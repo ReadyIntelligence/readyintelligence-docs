@@ -86,6 +86,7 @@ export default defineConfig({
 					label: 'Guides',
 					items: [
 						{ label: 'Knowledge Sources', slug: 'guides/knowledge-base' },
+						{ label: 'Credit Usage', slug: 'guides/credits' },
 						{
 							label: 'Agents',
 							items: [
@@ -99,6 +100,7 @@ export default defineConfig({
 							label: 'Assistants',
 							items: [
 								{ label: 'Overview', slug: 'guides/assistants' },
+								{ label: 'Admin Assistant', slug: 'guides/admin-assistant' },
 								{ label: 'Embedding', slug: 'guides/embedding' },
 								{ label: 'Third-party Authentication', slug: 'guides/third-party-auth' },
 							],

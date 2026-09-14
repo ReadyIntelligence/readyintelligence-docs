@@ -6,22 +6,25 @@ sidebar:
 ---
 
 **ReadyIntelligence** is an AI platform for your organisation. It lets you embed conversational
-**assistants** on your websites, ground them in your own **knowledge**, augment them with
-**skills** and external tools, and run **agents** in the backoffice — on a schedule, via
-webhooks, or as MCP endpoints other systems can call.
+**assistants** on your websites, chat with a staff **admin assistant** in the admin, ground
+both in your own **knowledge**, augment them with **skills** and external tools, and run
+**agents** in the backoffice — on a schedule, via webhooks, or as MCP endpoints other systems
+can call. Usage is measured in **credits** against your plan's period allowance.
 
 ## What you can do
 
 With ReadyIntelligence you can:
 
 1. Create **assistant** interfaces and embed them in your website
-2. Create **agent** definitions for assistants and for backoffice tasks
-3. Create **skills** and assign them to agents to augment their behaviour
-4. Index **knowledge** into a searchable vector store and connect it via agents and/or skills
-5. Register remote **MCP servers** and connect them to assistants (via agents)
-6. Create **MCP endpoints** that expose knowledge tools, MCP tools, and agents elsewhere
-7. Create **scheduled** backoffice agent calls and register **webhook** agent calls
-8. Register **third-party user systems** for authentication with embedded assistants — user claims can also be passed through as headers to third-party MCP servers for advanced integrations
+2. Use the **admin assistant** in the admin header to create skills, check usage, and work with knowledge
+3. Create **agent** definitions for assistants and for backoffice tasks
+4. Create **skills** and assign them to agents to augment their behaviour
+5. Index **knowledge** into a searchable vector store and connect it via agents and/or skills
+6. Register remote **MCP servers** and connect them to assistants (via agents)
+7. Create **MCP endpoints** that expose knowledge tools, MCP tools, and agents elsewhere
+8. Create **scheduled** backoffice agent calls and register **webhook** agent calls
+9. Register **third-party user systems** for authentication with embedded assistants — user claims can also be passed through as headers to third-party MCP servers for advanced integrations
+10. Track **credit usage** for chat and document indexing against your period allowance
 
 ## Two common journeys
 
@@ -33,14 +36,15 @@ Most teams start with one of these:
 | **Automate with agents** | Use ReadyIntelligence in your workflows — scheduled calls, webhooks, and MCP endpoints other systems can consume. |
 
 Follow [Getting started: Embed an assistant](./getting-started.mdx) or
-[Getting started: Automate with agents](./getting-started-automation.mdx). The guides below go
-deeper on each building block.
+[Getting started: Automate with agents](./getting-started-automation.mdx). Staff already in the
+admin can open the [admin assistant](../guides/admin-assistant.md) from the header. The guides
+below go deeper on each building block.
 
 ## The building blocks at a glance
 
 | Block | In one sentence |
 |-------|-----------------|
-| **Knowledge source** | A place your content lives — uploaded files, website pages, a resource library, cloud storage, a crawled site, and so on. |
+| **Knowledge source** | A place your content lives — uploaded files, a crawled website, cloud storage, and so on. |
 | **Knowledge base** | The searchable vector store that all your knowledge sources feed into, so AI can find relevant content by meaning. |
 | **Document** | A single indexed item (an article, a file, a video) inside the knowledge base, with optional structured metadata. |
 | **Agent** | The configurable AI "brain": how to behave, which model to use, what tools and skills it's allowed to use. |
@@ -61,9 +65,8 @@ deeper on each building block.
 ## Knowledge: sources, the base, and documents
 
 A **knowledge source** is an admin-configured connection to somewhere your content lives. Each
-source is of a particular **type** — for example uploaded documents, asset-manager files,
-website pages, a resource library, a crawled website, or cloud storage like Google Drive,
-Dropbox, and SharePoint.
+source is of a particular **type** — for example uploaded documents, a crawled website, or
+cloud storage like Google Drive, Dropbox, and SharePoint.
 
 Every source feeds **documents** into the shared **knowledge base**, where their text is
 indexed for semantic (vector) search. Documents can carry **structured metadata** (such as title,
@@ -85,12 +88,13 @@ See [Skills](../guides/skills.md).
 
 An **assistant** is the actual chat experience a user interacts with. It points at a default
 agent and adds presentation and access settings — welcome message, suggested prompts,
-theming, where it's embedded, and who's allowed to use it.
+theming, where it's embedded, and who's allowed to use it. The [admin assistant](../guides/admin-assistant.md)
+is the staff version of this, docked in the admin header.
 
 **Tools** are the capabilities an agent can invoke during a conversation. The built-in
 knowledge base search tool is the most common, but tools can also query structured data,
-look up membership information, fetch metrics, call another agent, or reach an external
-system. See [Agents](../guides/agents.md), [Assistants](../guides/assistants.md), and
+import a spreadsheet, fetch metrics, call another agent, or reach an external system. See
+[Agents](../guides/agents.md), [Assistants](../guides/assistants.md), and
 [Tools](../guides/tools.md).
 
 ## MCP
