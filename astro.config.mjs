@@ -110,6 +110,12 @@ export default defineConfig({
 					],
 				},
 				{
+					label: 'Tutorials',
+					items: [
+						{ label: 'Docking the Assistant as a Sidebar Panel', slug: 'tutorials/docked-sidebar-assistant' },
+					],
+				},
+				{
 					label: 'Reference',
 					items: [
 						{

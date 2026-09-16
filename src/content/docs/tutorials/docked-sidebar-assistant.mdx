@@ -1,0 +1,290 @@
+---
+title: Docking the assistant as a sidebar panel
+description: Mount the embedded assistant into a container of your own, lay it out as a docked sidebar, and toggle it open and closed from your site's own button.
+sidebar:
+  order: 1
+---
+
+import { Steps, Aside } from '@astrojs/starlight/components';
+
+The [floating display style](../guides/embedding.md) gives you a chat window that opens over the
+page, and it needs almost nothing from your site. This tutorial covers the step beyond that:
+**docking the assistant into your own layout as a sidebar panel** that reserves space beside your
+content and is opened and closed by a button you control.
+
+That means using the **inline** display style, telling the assistant where on the page to mount,
+and taking on the two things ReadyIntelligence deliberately leaves to you — sizing the panel and
+showing or hiding it.
+
+<Aside type="note" title="What you need first">
+A working assistant with **embedding enabled for your domain**, and its embed snippet to hand —
+see [Getting started: Embed an assistant](../start-here/getting-started.mdx) and
+[Embedding the assistant](../guides/embedding.md).
+</Aside>
+
+## How the embed mounts
+
+Everything below follows from what the embed script does when it runs:
+
+1. It looks for the assistant's **mount target** — the CSS selector you configure on the
+   assistant. With no mount target set, it uses `<body>`.
+2. It appends its container to that element:
+
+   ```html
+   <div id="ri-assistant" class="ri-assistant-container" data-config-endpoint="..."></div>
+   ```
+
+3. It loads the assistant application, which mounts into that container and renders inside a
+   **shadow root**, so its styles are sealed off from your page — and your page's styles cannot
+   reach inside it either.
+4. Once the application is ready it fires a `RIAssistantApiReady` event on `window`.
+
+Two consequences shape the rest of this tutorial. The mount target is how the assistant lands in
+your layout, so there is no DOM juggling to do on your side. And because the application is sealed
+in a shadow root, **the only thing your CSS styles is the container** — everything inside it is
+themed from the assistant's own appearance settings.
+
+## Building the docked sidebar
+
+<Aside type="tip" title="Where these settings live">
+**Display style**, **Mount target** and **Corner rounding** are all fields on the assistant
+itself. Open the **Web Assistant** record in the admin and edit it, then go to the **Theming**
+tab and find the **Layout** section. Changes take effect on the host page after a reload.
+</Aside>
+
+<Steps>
+
+1. **Set the display style to Inline**
+
+   Under **Theming → Layout**, set **Display style** to **Inline**. The assistant will then fill
+   whatever container you give it at 100% width and height, with no floating trigger button and
+   none of the floating-only settings (corner position, initial window size, z-index).
+
+   **Corner rounding** applies to this style too, so set it to match your panel — square if the
+   assistant sits flush against the edge of the viewport, rounded if it floats inside padding.
+
+2. **Add the dock and the embed snippet to your page**
+
+   Here is a minimal page: a header carrying the trigger, the page content, and an empty element
+   beside them for the assistant to mount into.
+
+   ```html title="your page"
+   <body>
+     <div class="page">
+       <div class="page__column">
+         <header class="site-header">
+           <a class="site-header__logo" href="/">Northwind Society</a>
+
+           <nav class="site-header__nav">
+             <a class="site-header__link" href="/membership/">Membership</a>
+             <a class="site-header__link" href="/events/">Events</a>
+           </nav>
+
+           <button
+             type="button"
+             class="site-header__action js-assistant-toggle"
+             aria-expanded="false"
+           >
+             Ask the assistant
+           </button>
+         </header>
+
+         <main class="page__main">
+           <h1>Welcome to the Northwind Society</h1>
+           <p>Browse member benefits, upcoming events and the resource library.</p>
+         </main>
+       </div>
+
+       <aside class="page__dock page__dock--collapsed js-assistant-dock" inert></aside>
+     </div>
+
+     <script src="https://your-ri-instance.example.com/riembed/xxxxxxxx/"></script>
+   </body>
+   ```
+
+   The page is a row: everything your visitors normally see stacks up in `page__column`, and the
+   dock sits alongside it as a full-height column. It starts collapsed, and `inert` keeps the
+   closed panel out of the tab order and away from screen readers.
+
+   The `js-` classes carry no styling — they exist only as hooks for the mount target and the
+   toggle. Keeping them separate from the classes you style with means both keep working when the
+   design changes.
+
+3. **Point the assistant at your dock**
+
+   Back on the assistant, under **Theming → Layout**, set **Mount target** to the selector for
+   that element:
+
+   ```
+   .js-assistant-dock
+   ```
+
+   Any CSS selector works — `#assistant-dock`, `.page > aside`, and so on. Save, then reload your
+   page: the assistant now mounts inside your dock instead of at the end of the body.
+
+   <Aside type="caution" title="The target must already exist">
+   The embed resolves the selector once, as the page finishes parsing. If it matches nothing at
+   that moment, **the assistant does not render at all** — it fails quietly rather than falling
+   back to the body. So the dock must be in your server-rendered markup, not created later by
+   your own JavaScript.
+   </Aside>
+
+4. **Lay the dock out as a sidebar**
+
+   Your content takes the remaining space, and the dock is a fixed-width column that only occupies
+   space when it is open.
+
+   ```css title="your stylesheet"
+   .page {
+     display: flex;
+     align-items: stretch;
+     height: 100vh;
+     overflow: hidden;
+   }
+
+   .page__column {
+     display: flex;
+     flex: 1;
+     flex-direction: column;
+     min-width: 0;      /* let the content shrink rather than overflow */
+   }
+
+   .page__main {
+     flex: 1;
+     overflow-y: auto;
+   }
+
+   .page__dock {
+     flex: 0 0 380px;
+     min-height: 0;
+     border-left: 1px solid #d4d4d4;
+     transition: margin-right 200ms ease;
+   }
+
+   .page__dock--collapsed {
+     margin-right: -380px;
+   }
+
+   @media (prefers-reduced-motion: reduce) {
+     .page__dock {
+       transition: none;
+     }
+   }
+
+   /* The assistant fills its container, so the container needs a real height. */
+   .page__dock > *,
+   .page__dock > * > * {
+     height: 100%;
+   }
+   ```
+
+   The negative margin is what slides the panel away: the dock keeps its full 380px, gives the
+   space back to your content, and is clipped by the `overflow: hidden` on `.page`. Animate that
+   rather than the dock's `width` — the assistant lays its own interior out with container
+   queries, so an animated width would have it re-flowing on every frame.
+
+   That last rule is the one worth dwelling on. The assistant sizes itself to 100% of its
+   container, which means it has no height of its own to fall back on: if the height chain breaks
+   anywhere between your dock and the assistant, the panel collapses and appears empty. There are
+   **two** elements in between — the `#ri-assistant` container the embed creates, and the shadow
+   host inside it — and both live in your page, so both are yours to size. Selecting them by
+   position, as above, saves depending on either one's class name.
+
+5. **Toggle the panel**
+
+   With the layout in place, opening and closing the sidebar is a matter of moving that one class
+   on and off, with `inert` following it:
+
+   ```html title="your page"
+   <script>
+     (function () {
+       var COLLAPSED = "page__dock--collapsed";
+
+       var dock   = document.querySelector( ".js-assistant-dock" );
+       var toggle = document.querySelector( ".js-assistant-toggle" );
+
+       function setOpen( isOpen ) {
+         dock.classList.toggle( COLLAPSED, !isOpen );
+         dock.inert = !isOpen;
+         toggle.setAttribute( "aria-expanded", String( isOpen ) );
+       }
+
+       toggle.addEventListener( "click", function () {
+         setOpen( dock.classList.contains( COLLAPSED ) );
+       } );
+     })();
+   </script>
+   ```
+
+   Collapsing the dock does not tear the assistant down — the application stays mounted and the
+   conversation is still there when the panel is reopened.
+
+6. **Handle the assistant's own close button**
+
+   The inline layout can show a close button in the assistant's header. Closing is the host's
+   business, so the button does nothing until you say what it should do — register a handler and
+   route it to the same place as your trigger:
+
+   ```js title="your page — inside the same script, after setOpen()"
+   function registerCloseHandler() {
+     if ( !window.RIAssistant || !window.RIAssistant.registerCloseHandler ) {
+       return false;
+     }
+
+     window.RIAssistant.registerCloseHandler( function () {
+       setOpen( false );
+     } );
+
+     return true;
+   }
+
+   if ( !registerCloseHandler() ) {
+     window.addEventListener( "RIAssistantApiReady", registerCloseHandler );
+   }
+   ```
+
+   Routing it through the same `setOpen()` as your trigger means the close button and the button
+   in your header leave exactly the same state behind. Registering the handler twice over — once
+   immediately, once on `RIAssistantApiReady` — covers both orderings without depending on where
+   your script sits relative to the embed.
+
+</Steps>
+
+## Notes and refinements
+
+### The JavaScript API does not open inline assistants
+
+`window.RIAssistant.openAssistant()` and the
+[web components](../reference/web-components/overview.mdx) that call it act on the **floating**
+window. They do nothing for an inline assistant, which has no window to open — the panel's
+visibility is whatever your CSS says it is. Wire your own button to your own toggle, as above,
+rather than reaching for the API. `registerCloseHandler()` is the exception: it exists precisely
+because the assistant needs a way to hand closing back to you.
+
+### Narrow screens
+
+A 380px column is a large share of a phone screen. Below your mobile breakpoint, either overlay
+the dock (`position: fixed` and full width) rather than reserving space for it, or fall back to
+the floating display style for small screens.
+
+### Styling inside the panel
+
+Your CSS reaches the container and stops there. Colours, fonts, and the assistant's corner
+rounding come from its **theming settings** in the admin — see
+[Assistants](../guides/assistants.md). Anything you write targeting elements inside the assistant
+will not apply.
+
+### Remembering the panel state
+
+Users generally expect a docked panel to stay as they left it. Persist the open/closed state (and
+the width, if you make the panel resizable) to `localStorage` and restore it before first paint,
+so the page doesn't flash open then snap shut.
+
+## Related reading
+
+- [Embedding the assistant](../guides/embedding.md) — floating, inline, and fullscreen compared.
+- [Assistants](../guides/assistants.md) — display style, mount target, theming, and access settings.
+- [Third-party authentication](../guides/third-party-auth.md) — identifying your users in an
+  external embed.
+- [Web Components](../reference/web-components/overview.mdx) — page-level triggers, best paired
+  with floating assistants.

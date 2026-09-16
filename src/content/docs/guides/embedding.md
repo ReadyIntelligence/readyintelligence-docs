@@ -17,7 +17,7 @@ settings changes what ReadyIntelligence renders inside the mount container.
 | **Inline** | The assistant UI fills a container you place in the page | **You** — size, position, collapse/expand, and page CSS |
 | **Fullscreen** | The assistant fills the viewport | **You** — page/route chrome around a full-viewport experience |
 
-Choose the style under the assistant's layout / appearance settings (**Display style**).
+Choose the style on the assistant's **Theming** tab, under **Layout** (**Display style**).
 
 ## Floating (default)
 
@@ -76,13 +76,24 @@ Typical uses:
 - A panel in a dashboard layout
 - An embedded chat area beside other content
 
+Set a **Mount target** on the assistant (**Theming → Layout**) — a CSS selector for the element
+the container should be added to (for example `#assistant-dock`). Leave it blank and the container
+is added to the end of the page body. The selector is resolved as the page finishes parsing; if it matches nothing, the
+assistant does not render at all, so the target must be present in your markup.
+
 You must give the container a real size (for example a sidebar with `width` and `height`, or a
 flex/grid child that stretches). If the container has no height, the assistant will not appear
 usefully on the page.
 
 Collapse behaviour is entirely yours — ReadyIntelligence does not ship a sidebar toggle. Your
 site's button or breakpoint logic shows or hides the panel; the assistant simply fills whatever
-space you give it.
+space you give it. Where the assistant shows its own close button, what that button does is also
+yours: register a handler with `window.RIAssistant.registerCloseHandler()`.
+
+:::tip[Worked example]
+[Docking the assistant as a sidebar panel](../tutorials/docked-sidebar-assistant.mdx) walks
+through the container placement, CSS, and toggle logic for an inline embed end to end.
+:::
 
 ### Fullscreen
 
@@ -124,3 +135,4 @@ layout needs change.
 - [Third-party authentication](./third-party-auth.md) — identity for external embeds.
 - [Web Components](../reference/web-components/overview.mdx) — page-level triggers and prompts (best with floating).
 - [Getting started: Embed an assistant](../start-here/getting-started.mdx) — end-to-end embed path.
+- [Docking the assistant as a sidebar panel](../tutorials/docked-sidebar-assistant.mdx) — a full inline embed worked through.
