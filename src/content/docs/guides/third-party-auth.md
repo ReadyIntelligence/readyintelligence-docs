@@ -1,6 +1,6 @@
 ---
 title: Third-party authentication
-description: Register identity providers so embedded assistants authenticate users from your own systems — OIDC, JWT, custom claims, and claim passthrough to MCP servers.
+description: Register identity providers so embedded assistants authenticate users from your own systems — OIDC, JWT, custom claims, claim passthrough to MCP servers, and the user's access token on external API calls.
 sidebar:
   order: 6
 ---
@@ -12,8 +12,9 @@ user system of your own. **Third-party authentication** lets ReadyIntelligence r
 users through an **identity provider** you register — so conversations run as a known user, with
 permissions and personalisation that match your organisation.
 
-This feature may need to be enabled for your site. If you don't see identity providers in the
-admin, contact your ReadyIntelligence contact.
+Register a provider under **Configuration & setup → Third Party Identity Providers**. This
+feature may need to be enabled for your site. If you don't see it in the admin, contact your
+ReadyIntelligence contact.
 
 ## Authentication methods
 
@@ -30,6 +31,7 @@ Each identity provider uses one method:
 |---------|-------------|
 | **Discovery document URL** | Your IdP's OpenID configuration URL (endpoints are read from it). |
 | **Client ID / Client secret** | Credentials from registering the ReadyIntelligence application with your IdP. |
+| **Additional OIDC scopes** | Optional extra permissions to request when the user signs in, in addition to openid, email, and profile. Add the scopes your external API documents when an [HTTP collection](./http-collections.md) will call that API with the user's access token. Users receive new scopes the next time they sign in. |
 | **Additional OIDC claims** | Optional extra claim names to request beyond the standard openid / email / profile set. |
 
 Use the redirect URI shown in the admin when you register the application with your identity
@@ -60,6 +62,26 @@ provider so logged-in users are recognised.
 
 As users authenticate, they appear under the provider's user list in the admin.
 
+## Calling an API with the user's access token
+
+When an external API accepts the same login as your assistant, an
+[HTTP collection](./http-collections.md) can send that user's **OAuth access token** with each
+call. The token is the one issued at sign-in, and it is refreshed automatically when the
+identity provider allows a refresh.
+
+Use **OpenID Connect** for this, and add any API permissions under **Additional OIDC scopes**.
+The **JWT** method sends the token your website supplied. An external API that expects the
+identity provider's access token may reject that token.
+
+On the collection, set **Authentication method** to **Bearer token** and insert **OAuth access
+token**. The call runs as the signed-in user. If that user is not signed in through the
+identity provider — including anonymous visitors and the admin assistant — the call does not go
+out. See [Connect an assistant to an API](./connect-an-api.md).
+
+**Connected accounts**, also under **Configuration & setup**, links this site to services such
+as file storage. Assistant logins, and the access token sent to an external API, come from
+**Third Party Identity Providers**.
+
 ## Custom claims
 
 Identity providers can define **custom fields** (claims) — for example `groups` or a
@@ -84,5 +106,7 @@ This supports advanced integrations where the external tool needs to know who is
 ## Related reading
 
 - [Assistants](./assistants.md) — embed modes, auth modes, and linking an identity provider.
+- [HTTP collections](./http-collections.md) — sending the user's access token, or a secret, to an external API.
+- [Connect an assistant to an API](./connect-an-api.md) — same-login and organisation-key setups.
 - [MCP](./mcp.md) — registering remote MCP servers that can receive claim headers.
 - [Getting started: Embed an assistant](../start-here/getting-started.mdx) — end-to-end embed path.

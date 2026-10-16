@@ -44,6 +44,7 @@ ReadyIntelligence ships with a range of tools you can attach to agents (and to s
 | **Data visualisation metrics** | Discover available metrics and query value or time-series figures about data in the system. |
 | **CSV / spreadsheet import** | Upload a CSV, TSV, or Excel file in chat, inspect its columns, and import the rows in the background. Admin / automation agents only. |
 | **User files** | Look up files in the signed-in user's private file library, including chat and prompt-form uploads. |
+| **HTTP API** | Call requests in an [API collection](./http-collections.md) — an external API, using a [secret](./secrets.md) or the signed-in user's access token. |
 | **MCP server tool** | Call a tool on an external [MCP server](./mcp.md) to answer a question. |
 | **Agent call** | Use another agent as a tool — useful for assistants, MCP endpoints, and composition. |
 | **Scheduled agent management** | Let the agent create, query, and update the current user's [scheduled agent runs](./automation.md). |
@@ -92,7 +93,7 @@ When you add a tool to an agent, the options depend on the tool, but commonly in
 
 - **Editorial description** — extra guidance, layered on top of the tool's built-in description, telling the model when and how to use this tool in this agent's context (for example, what a particular knowledge source contains).
 - **Usage description** — a short label shown when the tool is used.
-- **Tool-specific settings** — for example which knowledge sources the search tool may query, whether search is metadata only, or which data the data tools may touch.
+- **Tool-specific settings** — for example which knowledge sources the search tool may query, whether search is metadata only, which data the data tools may touch, or which [API collection](./http-collections.md) the HTTP API tool calls.
 
 The same tool can be attached to one agent more than once with different configuration, so a
 single agent could, say, search two different knowledge bases as two distinct tools.
@@ -104,4 +105,7 @@ single agent could, say, search two different knowledge bases as two distinct to
 - [Knowledge sources](./knowledge-base.md) — what the knowledge base search tool searches.
 - [Assistants](./assistants.md) — prompt forms and file uploads that feed the user files tool.
 - [Admin assistant](./admin-assistant.md) — staff chat that can use admin tools such as CSV import.
+- [HTTP collections](./http-collections.md) — describing an external API and attaching the HTTP API tool.
+- [Secrets](./secrets.md) — organisation-held keys an HTTP API call can insert.
+- [Connect an assistant to an API](./connect-an-api.md) — same-login and organisation-key setups.
 - [MCP](./mcp.md) — exposing tools to external apps, or calling external tools.

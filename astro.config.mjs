@@ -105,6 +105,14 @@ export default defineConfig({
 								{ label: 'Third-party Authentication', slug: 'guides/third-party-auth' },
 							],
 						},
+						{
+							label: 'External APIs',
+							items: [
+								{ label: 'Secrets', slug: 'guides/secrets' },
+								{ label: 'HTTP collections', slug: 'guides/http-collections' },
+								{ label: 'Connect an assistant to an API', slug: 'guides/connect-an-api' },
+							],
+						},
 						{ label: 'MCP', slug: 'guides/mcp' },
 						{ label: 'API Users', slug: 'guides/api-users' },
 					],
