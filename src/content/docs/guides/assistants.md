@@ -111,6 +111,7 @@ the [admin assistant](./admin-assistant.md).
 | Style | Behaviour |
 |-------|-----------|
 | **Floating** *(default)* | Floating trigger button and overlay chat window — flexible on any website with little host CSS. |
+| **Omnibar** | Search-style bar docked to the bottom of the page that opens the chat window — moves clear of the page's own bottom bars and banners. |
 | **Inline** | Assistant fills a container in your layout (for example a sidebar). You own sizing, collapse behaviour, and surrounding CSS. |
 | **Fullscreen** | Assistant fills the viewport — suited to a dedicated page or route. |
 
